@@ -9,8 +9,11 @@
 /* Begin PBXBuildFile section */
 		571C590418C4C6A70043A89B /* egg_ice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 571C590318C4C6A70043A89B /* egg_ice@2x.png */; };
 		571C590618C4C6AD0043A89B /* egg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 571C590518C4C6AD0043A89B /* egg@2x.png */; };
+		573FBB8518C5430B0083D4B2 /* penguin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 573FBB8418C5430B0083D4B2 /* penguin@2x.png */; };
 		57964D2C18C38E5300E8C2D3 /* egg_golden@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 57964D2B18C38E5300E8C2D3 /* egg_golden@2x.png */; };
 		57964D2E18C38E5E00E8C2D3 /* egg_dark_burning@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 57964D2D18C38E5E00E8C2D3 /* egg_dark_burning@2x.png */; };
+		579D8CDB18C8946E0064BB21 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 579D8CDA18C8946E0064BB21 /* GameKit.framework */; };
+		579D8CDD18C894EC0064BB21 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 579D8CDC18C894EC0064BB21 /* iAd.framework */; };
 		57A1BB7A18C36445005E76BB /* pixelParticle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 57A1BB7918C36445005E76BB /* pixelParticle@2x.png */; };
 		57A1BB7E18C3646E005E76BB /* Fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = 57A1BB7C18C3646E005E76BB /* Fire.sks */; };
 		57A1BB8218C367F8005E76BB /* WaterDrops.sks in Resources */ = {isa = PBXBuildFile; fileRef = 57A1BB8018C367F8005E76BB /* WaterDrops.sks */; };
@@ -50,8 +53,11 @@
 /* Begin PBXFileReference section */
 		571C590318C4C6A70043A89B /* egg_ice@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "egg_ice@2x.png"; sourceTree = "<group>"; };
 		571C590518C4C6AD0043A89B /* egg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "egg@2x.png"; sourceTree = "<group>"; };
+		573FBB8418C5430B0083D4B2 /* penguin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "penguin@2x.png"; sourceTree = "<group>"; };
 		57964D2B18C38E5300E8C2D3 /* egg_golden@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "egg_golden@2x.png"; sourceTree = "<group>"; };
 		57964D2D18C38E5E00E8C2D3 /* egg_dark_burning@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "egg_dark_burning@2x.png"; sourceTree = "<group>"; };
+		579D8CDA18C8946E0064BB21 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		579D8CDC18C894EC0064BB21 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		57A1BB7918C36445005E76BB /* pixelParticle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pixelParticle@2x.png"; sourceTree = "<group>"; };
 		57A1BB7C18C3646E005E76BB /* Fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fire.sks; sourceTree = "<group>"; };
 		57A1BB8018C367F8005E76BB /* WaterDrops.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = WaterDrops.sks; sourceTree = "<group>"; };
@@ -94,10 +100,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				579D8CDD18C894EC0064BB21 /* iAd.framework in Frameworks */,
 				57CD1DCA18BCE83F003CFF89 /* CoreGraphics.framework in Frameworks */,
 				57CD1DCC18BCE83F003CFF89 /* UIKit.framework in Frameworks */,
 				57CD1DCE18BCE83F003CFF89 /* SpriteKit.framework in Frameworks */,
 				57CD1DC818BCE83F003CFF89 /* Foundation.framework in Frameworks */,
+				579D8CDB18C8946E0064BB21 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,9 +122,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5742496D18C5EEA9001A952F /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = iPad;
+			sourceTree = "<group>";
+		};
 		57A1BB7218C362CF005E76BB /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
+				573FBB8418C5430B0083D4B2 /* penguin@2x.png */,
 				571C590518C4C6AD0043A89B /* egg@2x.png */,
 				571C590318C4C6A70043A89B /* egg_ice@2x.png */,
 				57964D2D18C38E5E00E8C2D3 /* egg_dark_burning@2x.png */,
@@ -157,6 +173,8 @@
 		57CD1DC618BCE83F003CFF89 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				579D8CDC18C894EC0064BB21 /* iAd.framework */,
+				579D8CDA18C8946E0064BB21 /* GameKit.framework */,
 				57CD1DC718BCE83F003CFF89 /* Foundation.framework */,
 				57CD1DC918BCE83F003CFF89 /* CoreGraphics.framework */,
 				57CD1DCB18BCE83F003CFF89 /* UIKit.framework */,
@@ -169,6 +187,7 @@
 		57CD1DCF18BCE83F003CFF89 /* Penguin Train */ = {
 			isa = PBXGroup;
 			children = (
+				5742496D18C5EEA9001A952F /* iPad */,
 				57CD1DDB18BCE83F003CFF89 /* Main.storyboard */,
 				57CD1DDE18BCE83F003CFF89 /* ViewController.h */,
 				57CD1DDF18BCE83F003CFF89 /* ViewController.m */,
@@ -262,6 +281,14 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Victor Ingman";
 				TargetAttributes = {
+					57CD1DC318BCE83F003CFF89 = {
+						DevelopmentTeam = 3R7ERELMNH;
+						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
+						};
+					};
 					57CD1DEB18BCE83F003CFF89 = {
 						TestTargetID = 57CD1DC318BCE83F003CFF89;
 					};
@@ -292,6 +319,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				571C590618C4C6AD0043A89B /* egg@2x.png in Resources */,
+				573FBB8518C5430B0083D4B2 /* penguin@2x.png in Resources */,
 				57CD1DD418BCE83F003CFF89 /* InfoPlist.strings in Resources */,
 				57964D2E18C38E5E00E8C2D3 /* egg_dark_burning@2x.png in Resources */,
 				571C590418C4C6A70043A89B /* egg_ice@2x.png in Resources */,
@@ -446,11 +474,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Penguin Train/Penguin Train-Prefix.pch";
 				INFOPLIST_FILE = "Penguin Train/Penguin Train-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "0E17413D-7CFF-40D4-921F-C17179B4D155";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -460,11 +493,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Penguin Train/Penguin Train-Prefix.pch";
 				INFOPLIST_FILE = "Penguin Train/Penguin Train-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "0E17413D-7CFF-40D4-921F-C17179B4D155";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

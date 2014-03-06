@@ -10,8 +10,12 @@
 
 #import "Game.h"
 
+#define THEME_BLOCK 1
+#define THEME_PENGUIN 2
+
 @interface GameRender : SKScene
 
 @property (nonatomic) Game * currentGame;
+@property (nonatomic) NSInteger theme;
 
 @end

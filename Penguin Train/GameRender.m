@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Victor Ingman. All rights reserved.
 //
 
+#import "iAd/iAd.h"
+
 #import "GameRender.h"
 
 @interface GameRender() {
@@ -28,7 +30,9 @@
         scoreLabelFontSize = 12;
         fontname = @"Verdana";
         
-        self.backgroundColor = [UIColor blackColor];
+        self.theme = THEME_PENGUIN;
+        
+        self.backgroundColor = [self.class backgroundForTheme:self.theme];
         
     }
     
@@ -36,7 +40,12 @@
     
 }
 
-- (void) didMoveToView: (SKView *) view  {
+- (void) didMoveToView:(SKView *) view  {
+    
+    ADBannerView * ad = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
+    ad.frame = CGRectMake(ad.frame.origin.x, screenSize.height, ad.frame.size.width, ad.frame.size.height);
+    [self.view addSubview:ad];
+    /*to be continued, can't add delegate in skscene...*/
     
     /*VARIABLE SETUP*/
     screenSize = [view frame].size;
@@ -71,9 +80,195 @@
 
 - (void)update:(CFTimeInterval)currentTime { //always
     
-    [self renderTrainBlocks];
+    [self renderScorePopups];
+    [self renderEarthquakeIfDead];
+    
+    [self renderEmitters];
     [self renderActionBlocks];
+    
+    [self renderTrainBlocks];
     [self renderScores];
+    
+}
+
+- (void)renderEarthquakeIfDead {
+    
+    id data = [self.currentGame getViewKey:@"died"];
+    
+    if(data != nil && data != [NSNull null]) {
+        
+        data = (NSNumber *)data;
+        
+        [self runAction:[SKAction moveByX:4.0 y:0 duration:0.05] completion:^{
+            
+            [self runAction:[SKAction moveByX:-8.0 y:0 duration:0.05] completion:^{
+               
+                [self runAction:[SKAction moveByX:4.0 y:0 duration:0.05] completion:^{
+                    
+                }];
+                
+            }];
+            
+        }];
+        
+    }
+    
+}
+
+- (void)pauseGame {
+    
+    [self setPaused:YES];
+    self.currentGame.paused = YES;
+    
+}
+
+- (void)unpauseGame {
+    
+    [self setPaused:NO];
+    self.currentGame.paused = NO;
+    
+}
+
+- (void)renderScorePopups {
+    
+    id data = [self.currentGame getViewKey:@"ateblock"];
+    
+    if(data != nil && data != [NSNull null]) {
+        
+        ActionBlock * block = data;
+        
+        NSInteger scoreAchieved = block.value;
+        
+        SKNode * popupParent = [self childNodeWithName:@"scorePopups"];
+        
+        if(!popupParent) {
+            
+            popupParent = [SKNode node];
+            popupParent.name = @"scorePopups";
+            
+            [self addChild:popupParent];
+            
+        }
+        
+        SKLabelNode * scorePopup = [[SKLabelNode alloc] initWithFontNamed:fontname];
+        scorePopup.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+        scorePopup.verticalAlignmentMode = SKLabelVerticalAlignmentModeCenter;
+        scorePopup.fontSize = 18;
+        scorePopup.fontName = [NSString stringWithFormat:@"%@-bold", fontname];
+        
+        if(scoreAchieved > 0) {
+            
+            scorePopup.fontColor = [UIColor orangeColor];
+            
+        } else {
+            
+            scorePopup.fontColor = [UIColor redColor];
+            
+        }
+        
+        /*[self runAction:[SKAction moveByX:BLOCK_SIZE y:0 duration:0.2] completion:^{
+            
+            [self runAction:[SKAction moveByX:-BLOCK_SIZE y:0 duration:0.2]];
+            
+        }];*/ //shake
+    
+        scorePopup.text = [NSString stringWithFormat:@"%d", [[self.currentGame getViewKey:@"ateblockvalue"] integerValue]];
+        
+        CGPoint blockPoint = [[self.currentGame.trains[0] headBlock] realPixelPoint];
+        
+        scorePopup.position = blockPoint;
+        
+        [popupParent addChild:scorePopup];
+        
+        [scorePopup runAction:[SKAction moveByX:0 y:BLOCK_SIZE duration:1.5]];
+        [scorePopup runAction:[SKAction fadeOutWithDuration:1.5] completion:^{
+            
+            [scorePopup removeFromParent];
+            
+        }];
+        
+    }
+    
+}
+
+- (void)renderEmitters {
+    
+    SKNode * emitterParentNode = [self childNodeWithName:@"emitterblocks"];
+    
+    if(!emitterParentNode) {
+        
+        emitterParentNode = [SKNode node];
+        emitterParentNode.name = @"emitterblocks";
+        
+        [self addChild:emitterParentNode];
+        
+    }
+        
+    NSInteger actionBlockCount = 0;
+    
+    for(ActionBlock * actionBlock in self.currentGame.actionBlocks) {
+        
+        SKEmitterNode * emitterBlock = (SKEmitterNode *)[emitterParentNode childNodeWithName:[NSString stringWithFormat:@"%ld", (long)actionBlockCount]];
+        
+        NSInteger blockType = actionBlock.type;
+        CGPoint blockPoint = [actionBlock realPixelPoint];
+        
+        if(!emitterBlock) {
+            
+            NSString * particlePath = [[NSBundle mainBundle] pathForResource:[self.class particleNameForType:blockType andTheme:self.theme] ofType:@"sks"];
+            
+            emitterBlock = [NSKeyedUnarchiver unarchiveObjectWithFile:particlePath];
+            emitterBlock.particleScale = emitterBlock.particleScale * ((float)BLOCK_SIZE / 16.0);
+            emitterBlock.name = [NSString stringWithFormat:@"%ld", (long)actionBlockCount];
+            //emitterBlock.targetNode = [[self childNodeWithName:@"actionblocks"] childNodeWithName:[NSString stringWithFormat:@"%d", actionBlockCount]];
+            
+            [emitterParentNode addChild:emitterBlock];
+            
+        }
+        
+        if(blockType == TYPE_FOOD) {
+            
+            emitterBlock.hidden = YES;
+            
+        } else {
+            
+            emitterBlock.hidden = NO;
+            
+        }
+        
+        emitterBlock.position = blockPoint;
+        
+        actionBlockCount++;
+        
+    }
+    
+    [self removeInactiveEmitters];
+    
+}
+
+- (void)removeInactiveEmitters {
+    
+    SKNode * actionBlocksNode = [self childNodeWithName:@"emitterblocks"];
+    
+    if(actionBlocksNode) {
+        
+        NSInteger renderedBlockCount = [actionBlocksNode.children count];
+        NSInteger blockCount = [self.currentGame.actionBlocks count];
+        
+        if(renderedBlockCount > blockCount) {
+            
+            NSRange blocksToRemove;
+            blocksToRemove.location = blockCount;
+            blocksToRemove.length = renderedBlockCount - blockCount;
+            
+            NSArray * dataToRemove = [actionBlocksNode children];
+            NSArray * renderedBlocksToRemove = [dataToRemove subarrayWithRange:blocksToRemove];
+            
+            [actionBlocksNode removeChildrenInArray:renderedBlocksToRemove];
+            
+        }
+        
+    }
     
 }
 
@@ -87,7 +282,8 @@
         scorebarDimension.width = screenSize.width;
         scorebarDimension.height = screenSize.height - [self.currentGame.board realDimension].height;
         
-        scoreNode = [SKSpriteNode spriteNodeWithColor:[UIColor colorWithWhite:0.15 alpha:1] size:scorebarDimension];
+        UIColor * barColor = [UIColor colorWithHue:(200.0/360.0) saturation:(5.0/100.0) brightness:(79.0/100.0) alpha:1];
+        scoreNode = [SKSpriteNode spriteNodeWithColor:barColor size:scorebarDimension];
         scoreNode.name = @"scorebar";
         scoreNode.anchorPoint = CGPointMake(0, 1);
         scoreNode.position = CGPointMake(0, screenSize.height);
@@ -110,14 +306,18 @@
             highscoreLabel = [SKLabelNode node];
             highscoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeRight;
             highscoreLabel.verticalAlignmentMode = SKLabelVerticalAlignmentModeCenter;
-            highscoreLabel.fontColor = [UIColor whiteColor];
-            highscoreLabel.fontName = fontname;
+            highscoreLabel.fontColor = [UIColor blackColor];
+            highscoreLabel.fontName = [NSString stringWithFormat:@"%@-bold", fontname];
             highscoreLabel.fontSize = scoreLabelFontSize;
             highscoreLabel.position = highscorePosition;
             highscoreLabel.text = [NSString stringWithFormat:@"Highscore: %ld", (long)[ScoreCounter Highscore]];
             highscoreLabel.name = @"highscore";
             
             [scoreNode addChild:highscoreLabel];
+            
+        } else {
+            
+            highscoreLabel.text = [NSString stringWithFormat:@"Highscore: %ld", (long)[ScoreCounter Highscore]];
             
         }
         
@@ -135,7 +335,17 @@
             
             scoreLabelNode = [SKLabelNode node];
             scoreLabelNode.position = scorePosition;
-            scoreLabelNode.fontColor = currentTrain.colorIdentifier;
+            
+            if(trainCount == 1) {
+                
+                scoreLabelNode.fontColor = [UIColor blackColor];
+                
+            } else {
+                
+                scoreLabelNode.fontColor = currentTrain.colorIdentifier;
+                
+            }
+            
             scoreLabelNode.fontSize = scoreLabelFontSize;
             scoreLabelNode.fontName = fontname;
             scoreLabelNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
@@ -146,6 +356,23 @@
             [scoreNode addChild:scoreLabelNode];
             
         } else {
+            
+            id data = [self.currentGame getViewKey:@"scoreupdated"];
+            
+            if(data != nil && data != [NSNull null]) {
+                
+                data = (NSNumber *)data;
+                
+                if([data boolValue] == YES) {
+                    
+                    [scoreLabelNode runAction:[SKAction scaleTo:1.1 duration:[self.currentGame gameSpeedInSeconds]] completion:^{
+                        
+                        [scoreLabelNode runAction:[SKAction scaleTo:1.0 duration:([self.currentGame gameSpeedInSeconds] / 2.0)]];
+                        
+                    }];
+                }
+                
+            }
             
             scoreLabelNode.text = [NSString stringWithFormat:@"%ld", (long)currentTrain.score.count];
             
@@ -173,8 +400,7 @@
         } else {
             
             if(![trainNode hasActions]) {
-            
-                //run effects?
+
                 
             }
             
@@ -190,7 +416,9 @@
                 
                 CGSize blockSize = trainBlock.realPixelSize;
                 
-                blockNode = [SKSpriteNode spriteNodeWithColor:[playerTrain colorIdentifier] size:blockSize];
+                //blockNode = [SKSpriteNode spriteNodeWithColor:[playerTrain colorIdentifier] size:blockSize];
+                blockNode = [SKSpriteNode spriteNodeWithImageNamed:@"penguin@2x"];
+                blockNode.size = blockSize;
                 blockNode.position = [trainBlock realPixelPoint];
                 blockNode.name = [NSString stringWithFormat:@"%ld", (long)blockIndex];
                 
@@ -204,9 +432,18 @@
                 
             } else {
                 
-                if(![blockNode hasActions]) {
+                blockNode.position = [trainBlock realPixelPoint];
                 
-                    blockNode.position = [trainBlock realPixelPoint];
+                if(![blockNode hasActions]) {
+                    
+                    float halfGameSpeed = ([self.currentGame gameSpeedInSeconds]);
+                    float angle = (45.0/360.0);
+                    
+                    [blockNode runAction:[SKAction rotateToAngle:-angle duration:halfGameSpeed] completion:^{
+                        
+                        [blockNode runAction:[SKAction rotateToAngle:(angle) duration:halfGameSpeed]];
+                        
+                    }];
                     
                 }
                 
@@ -245,15 +482,6 @@
 - (void) renderActionBlocks {
 
     SKNode * actionBlocksNode = [self childNodeWithName:@"actionblocks"];
-    SKNode * emittersNode = [self childNodeWithName:@"emitterblocks"];
-    
-    if(!emittersNode) {
-        
-        emittersNode = [SKNode node];
-        emittersNode.name = @"emitterblocks";
-        [self addChild:emittersNode];
-        
-    }
     
     if(!actionBlocksNode) {
         
@@ -263,54 +491,17 @@
         
     }
     
-    if(emittersNode && actionBlocksNode) {
+    if(actionBlocksNode) {
         
         NSInteger actionBlockIndex = 0;
         
         for(ActionBlock * actionBlock in self.currentGame.actionBlocks) {
         
             SKSpriteNode * blockNode = (SKSpriteNode *)[actionBlocksNode childNodeWithName:[NSString stringWithFormat:@"%ld", (long)actionBlockIndex]];
-            SKEmitterNode * emitterNode = (SKEmitterNode *)[emittersNode childNodeWithName:[NSString stringWithFormat:@"%ld", (long)actionBlockIndex]];
             
             NSString * spriteImageName = [self.class spriteForType:actionBlock.type];
             UIColor * blockColor = actionBlock.colorIdentifier;
             CGPoint blockPoint = [actionBlock realPixelPoint];
-            long actionBlockType = actionBlock.type;
-            
-            NSString * particleName = [self.class particleNameForType:actionBlock.type];
-            
-            if(!emitterNode) {
-                
-                if(particleName) {
-                    
-                    emitterNode = [self.class extractedParticleForType:actionBlockType];
-                    emitterNode.position = blockPoint;
-                    
-                } else {
-                    
-                    emitterNode = [SKEmitterNode node];
-                    emitterNode.hidden = YES;
-                    
-                }
-                
-                emitterNode.name = [NSString stringWithFormat:@"%ld", (long)actionBlockIndex];
-                [emittersNode addChild:emitterNode];
-                
-            } else {
-                
-                if(!particleName) {
-                    
-                    emitterNode.hidden = YES;
-                    
-                } else {
-
-                    emitterNode.hidden = NO;
-                    
-                }
-                
-                emitterNode.position = blockPoint;
-                
-            }
             
             if(!blockNode) {
                 
@@ -374,7 +565,6 @@
 - (void)removeInactiveActionBlocks {
     
     SKNode * actionBlocksNode = [self childNodeWithName:@"actionblocks"];
-    //SKNode * emitterBlocksNode = [self childNodeWithName:@"emitterblocks"];
     
     if(actionBlocksNode) {
         
@@ -386,13 +576,8 @@
             NSRange blocksToRemove;
             blocksToRemove.location = blockCount;
             blocksToRemove.length = renderedBlockCount - blockCount;
-            
-            //NSArray * emittersToRemove = [emitterBlocksNode children];
+
             NSArray * dataToRemove = [actionBlocksNode children];
-            
-            //NSArray * renderedEmittersToRemove = [emittersToRemove subarrayWithRange:blocksToRemove];
-            //[emitterBlocksNode removeChildrenInArray:renderedEmittersToRemove];
-            
             NSArray * renderedBlocksToRemove = [dataToRemove subarrayWithRange:blocksToRemove];
             
             [renderedBlocksToRemove enumerateObjectsUsingBlock:^(id object, NSUInteger index, BOOL * stop) {
@@ -487,21 +672,52 @@
     }
 }
 
-+ (id)extractedParticleForType:(NSInteger)requestedType {
++ (id)extractedParticleForType:(NSInteger)requestedType andTheme:(NSInteger)theme {
     
-    NSString * path = [[NSBundle mainBundle] pathForResource:[self.class particleNameForType:requestedType] ofType:@"sks"];
+    NSString * path = [[NSBundle mainBundle] pathForResource:[self.class particleNameForType:requestedType andTheme:theme] ofType:@"sks"];
     
     return [NSKeyedUnarchiver unarchiveObjectWithFile:path];
     
 }
 
-+ (NSString *)particleNameForType:(NSInteger)requestedType {
++ (UIColor *)backgroundForTheme:(NSInteger)theme {
+    
+    CGFloat hue, brightness, saturation;
+    
+    switch(theme) {
+            
+        case THEME_PENGUIN:
+            
+            hue = 202.0;
+            saturation = 5.0;
+            brightness = 88.0;
+            
+            break;
+            
+        case THEME_BLOCK:
+            
+            hue = 0;
+            saturation = 0;
+            brightness = 0;
+            
+            break;
+            
+    }
+    
+    return [UIColor colorWithHue:(hue / 360.0) saturation:(saturation / 100.0) brightness:(brightness / 100.0) alpha:1];
+    
+}
+
++ (NSString *)particleNameForType:(NSInteger)requestedType andTheme:(NSInteger)theme {
+    
+    if(theme == THEME_PENGUIN) {
     
     switch(requestedType) {
             
+        case TYPE_FOOD:
         case TYPE_BONUS:
             
-            return @"BonusAura";
+                return @"BonusAura";
             
             break;
             
@@ -517,6 +733,20 @@
             
             break;
             
+    }
+        
+    } else {
+        
+        switch(requestedType) {
+                
+            default:
+                
+                return nil;
+                
+                break;
+                
+        }
+        
     }
     
 }

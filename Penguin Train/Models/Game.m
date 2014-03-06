@@ -29,6 +29,7 @@
 - (void)setDefaultSettingsForPlayers:(NSInteger)playerCount onGridDimension:(CGSize)gridDimension  {
     
     //the gamespeed is set in block.h because of inheritance.
+    self.paused = NO;
     self.gameSpeed = [Block gamespeed]; //ms
     
     /*TRAINS*/
@@ -63,33 +64,39 @@
 
 - (void) loop {
     
-    if([self gameIsStillOn]) {
-        
-        for(Train * playerTrain in self.trains) {
+    if(!self.paused) {
+    
+        if([self gameIsStillOn]) {
             
-            if([self trainInsideBoard:playerTrain]) {
+            for(Train * playerTrain in self.trains) {
                 
-                [playerTrain move];
-                [self collisionWithActionBlockForTrain:playerTrain]; //looking for collisions with actionblocks.
-                
-            } else {
-                
-                [playerTrain died];
+                if([self trainInsideBoard:playerTrain]) {
+                    
+                    [playerTrain move];
+                    [self collisionWithActionBlockForTrain:playerTrain]; //looking for collisions with actionblocks.
+                    
+                } else {
+                    
+                    [playerTrain died];
+                    
+                }
                 
             }
             
+            [self performDecrementLoopOnActionBlocks]; //temporary actionblocks.
+            [self performActionsOnInactiveActionBlocks]; //always last.
+            
+        } else {
+            
+            [self setViewKey:@"died" forData:[NSNumber numberWithBool:YES]];
+            
+            Board * board = self.board;
+            NSInteger players = [self.trains count];
+            
+            [self reset];
+            [self setDefaultSettingsForPlayers:players onGridDimension:[board grid]];
+            
         }
-        
-        [self performDecrementLoopOnActionBlocks]; //temporary actionblocks.
-        [self performActionsOnInactiveActionBlocks]; //always last.
-        
-    } else {
-        
-        Board * board = self.board;
-        NSInteger players = [self.trains count];
-        
-        [self reset];
-        [self setDefaultSettingsForPlayers:players onGridDimension:[board grid]];
         
     }
     
@@ -142,8 +149,13 @@
         
         if(CGPointEqualToPoint([train headPosition], actionBlock.point)) {
             
+            [self setViewKey:@"ateblock" forData:actionBlock];
+            [self setViewKey:@"ateblockvalue" forData:[NSNumber numberWithInteger:actionBlock.value]];
+            [self setViewKey:@"scoreupdated" forData:[NSNumber numberWithBool:YES]];
+            
             [train ateBlock:actionBlock];
             [actionBlock eaten];
+            
             collision = YES;
             collisionBlock = actionBlock.type;
             
@@ -160,6 +172,26 @@
         }
         
     }
+    
+}
+
+- (void)setViewKey:(NSString *)key forData:(id)data {
+    
+    [self.viewData setValue:data forKey:key];
+    
+}
+
+- (id)getViewKey:(NSString *)key {
+    
+    id data = [self.viewData objectForKey:key];
+    
+    if(data) {
+        
+        [self.viewData setObject:[NSNull null] forKey:key]; //remove data after reading it.
+        
+    }
+    
+    return data;
     
 }
 
@@ -231,6 +263,18 @@
 }
 
 #pragma getters
+
+- (NSMutableDictionary *)viewData {
+    
+    if(!_viewData) {
+        
+        _viewData = [[NSMutableDictionary alloc] init];
+        
+    }
+    
+    return _viewData;
+    
+}
 
 - (NSMutableArray *) actionBlocks {
     

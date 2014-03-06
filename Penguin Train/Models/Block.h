@@ -19,7 +19,7 @@
 @property (nonatomic) BOOL active; //is the block still active?
 
 - (Block *) initWithBlockPoint: (CGPoint) desiredPoint;
-- (CGPoint) realPixelPoint; //the real pixel position.
+- (CGPoint)realPixelPoint; //the real pixel position.
 - (CGSize)realPixelSize; //the real pixel size.
 
 + (NSNumber *)gamespeed;

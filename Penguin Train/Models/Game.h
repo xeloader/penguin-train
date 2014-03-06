@@ -20,9 +20,12 @@
 @property (nonatomic) NSMutableArray * trains;
 @property (nonatomic) NSMutableArray * actionBlocks;
 @property (nonatomic) NSNumber * gameSpeed;
+@property (nonatomic) NSMutableDictionary * viewData; //some data is important to the view.
+@property (nonatomic) BOOL paused;
 
 - (void) loop;
 - (Game *) initGameForPlayers:(NSInteger)playerCount onGridDimension:(CGSize)gridDimension;
 - (float)gameSpeedInSeconds;
+- (id)getViewKey:(NSString *)key;
 
 @end

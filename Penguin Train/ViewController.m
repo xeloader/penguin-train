@@ -5,6 +5,7 @@
 //  Created by Victor Ingman on 2014-02-25.
 //  Copyright (c) 2014 Victor Ingman. All rights reserved.
 //
+#import "iAd/iAd.h"
 
 #import "ViewController.h"
 #import "GameRender.h"
