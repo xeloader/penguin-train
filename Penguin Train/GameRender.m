@@ -10,12 +10,19 @@
 
 #import "GameRender.h"
 
+#define AD_TIME 3000
+
 @interface GameRender() {
 
     CGSize screenSize;
     
     NSInteger scoreLabelFontSize;
     NSString * fontname;
+    
+    NSTimer * timer;
+    BOOL timerStarted;
+    
+    NSInteger adCountdown;
 
 }
 
@@ -27,16 +34,109 @@
     
     if (self = [super initWithSize:size]) {
         
+        adCountdown = AD_TIME;
+        timerStarted = NO;
+        
         scoreLabelFontSize = 12;
         fontname = @"Verdana";
         
         self.theme = THEME_PENGUIN;
-        
         self.backgroundColor = [self.class backgroundForTheme:self.theme];
+        
+        timer = [NSTimer scheduledTimerWithTimeInterval:0.1
+                                         target:self
+                                       selector:@selector(timerLoop)
+                                       userInfo:nil
+                                        repeats:YES];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReciever:) name:@"render" object:nil];
+        
+        [self performSelectorOnMainThread:@selector(timerLoop) withObject:nil waitUntilDone:YES];
         
     }
     
     return self;
+    
+}
+
+- (void)messageReciever:(NSNotification *)notification {
+    
+    if([notification.object isKindOfClass:[NSString class]]) {
+        
+        NSString * message = (NSString *) notification.object;
+        
+        if([message isEqualToString:@"pausegame"]) {
+            
+            [self pauseGame];
+            
+        }
+        
+        if([message isEqualToString:@"startgame"]) {
+            
+            [self countdownAndStartgame];
+            
+        }
+        
+    }
+    
+}
+
+- (void)timerLoop {
+    
+    if(timerStarted == YES) {
+        
+        if(adCountdown > 0) {
+        
+            adCountdown -= 100;
+            
+        } else {
+            
+            [self hideAd];
+            
+        }
+        
+    }
+    
+}
+
+- (void)countdownAndStartgame {
+    
+    self.paused = NO;
+    
+    SKLabelNode * countdown = [SKLabelNode node];
+    countdown.text = [NSString stringWithFormat:@"%ld", (long)3];
+    countdown.fontSize = 24;
+    countdown.fontName = [NSString stringWithFormat:@"%@-bold", fontname];
+    countdown.fontColor = [UIColor blackColor];
+    countdown.position = CGPointMake(screenSize.width / 2, screenSize.height / 2);
+    
+    [self addChild:countdown];
+    
+    [countdown runAction:[SKAction fadeOutWithDuration:1] completion:^{
+        
+        countdown.text = [NSString stringWithFormat:@"%ld", (long)2];
+        [countdown runAction:[SKAction fadeInWithDuration:0.01] completion:^{
+            
+            [countdown runAction:[SKAction fadeOutWithDuration:1] completion:^{
+                
+                countdown.text = [NSString stringWithFormat:@"%ld", (long)1];
+                [countdown runAction:[SKAction fadeInWithDuration:0.01] completion:^{
+                    
+                    [countdown runAction:[SKAction fadeOutWithDuration:1] completion:^{
+                        
+                        [countdown removeFromParent];
+                        [self unpauseGame];
+                        
+                    }];
+                    
+                }];
+                
+            }];
+            
+        }];
+
+        
+    }];
     
 }
 
@@ -100,7 +200,9 @@
                
                 [self runAction:[SKAction moveByX:4.0 y:0 duration:0.05] completion:^{
                     
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"died" object:self];
+                    [self showAd];
+                    [self pauseGame];
+                    [self countdownAndStartgame];
                     
                 }];
                 
@@ -112,16 +214,31 @@
     
 }
 
+- (void)showAd {
+    
+    timerStarted = YES;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"viewcontroller" object:@"showad"];
+    
+}
+
+- (void)hideAd {
+    
+    timerStarted = NO;
+    adCountdown = AD_TIME;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"viewcontroller" object:@"hidead"];
+    
+}
+
 - (void)pauseGame {
     
-    [self setPaused:YES];
+    //[self setPaused:YES];
     self.currentGame.paused = YES;
     
 }
 
 - (void)unpauseGame {
     
-    [self setPaused:NO];
+    //[self setPaused:NO];
     self.currentGame.paused = NO;
     
 }
@@ -162,7 +279,7 @@
             
         }
     
-        scorePopup.text = [NSString stringWithFormat:@"%d", scoreAchieved];
+        scorePopup.text = [NSString stringWithFormat:@"%ld", (long)scoreAchieved];
         
         CGPoint blockPoint = [[self.currentGame.trains[0] headBlock] realPixelPoint];
         

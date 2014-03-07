@@ -173,7 +173,7 @@
             
         }
         
-        [self bombField];
+        //[self bombField]; //disabled for now.
         
     }
     

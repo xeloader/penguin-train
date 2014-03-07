@@ -13,6 +13,7 @@
 @interface ViewController() {
 
     ADBannerView * ad;
+    //googleAd * gad;
 
 }
 
@@ -27,10 +28,14 @@
 {
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(communication:) name:@"MyFunkyViewSwitcherooNotification" object:nil];
+    /*Messaging between subviews*/
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReciever:) name:@"viewcontroller" object:nil];
     
+    /*iAd*/
     ad = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
     ad.frame = CGRectMake(ad.frame.origin.x, self.view.frame.size.height - ad.frame.size.height, ad.frame.size.width, ad.frame.size.height);
+    ad.hidden = YES;
+    ad.delegate = self;
     [self.view addSubview:ad];
     
     /*VIEW SETUP*/
@@ -47,10 +52,70 @@
     
 }
 
-- (void)communication:(NSString *)notification {
+- (void)bannerViewActionDidFinish:(ADBannerView *)banner {
     
-    //to be continued
-    NSLog(@"%@", notification);
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"render" object:@"startgame"];
+    
+}
+
+- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"render" object:@"pausegame"];
+    
+    return YES;
+    
+}
+
+- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
+    
+    if(YES) {
+    
+        NSLog(@"Fuck, no ad.");
+    
+    }
+    
+}
+
+- (void)messageReciever:(NSNotification *)notification {
+    
+    if([notification.object isKindOfClass:[NSString class]]) {
+
+        NSString * message = (NSString *)notification.object;
+        
+        if([message isEqualToString:@"showad"]) {
+            
+            [self showAd];
+            
+        }
+        
+        if([message isEqualToString:@"hidead"]) {
+            
+            [self hideAd];
+            
+        }
+        
+    }
+    
+}
+
+- (void)showAd {
+    
+    if([ad isBannerLoaded]) {
+        
+        ad.hidden = NO;
+        
+    } /*else if([gad isBannerLoaded]) {
+        
+        
+        
+    }*/
+
+    
+}
+
+- (void)hideAd {
+    
+    ad.hidden = YES;
     
 }
 
