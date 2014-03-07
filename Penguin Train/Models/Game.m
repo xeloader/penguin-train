@@ -144,14 +144,13 @@
     
     BOOL collision = NO;
     NSInteger collisionBlock;
+    NSInteger collisionValue = 0; //total of eaten blocks.
     
     for(ActionBlock * actionBlock in self.actionBlocks) {
         
         if(CGPointEqualToPoint([train headPosition], actionBlock.point)) {
             
-            [self setViewKey:@"ateblock" forData:actionBlock];
-            [self setViewKey:@"ateblockvalue" forData:[NSNumber numberWithInteger:actionBlock.value]];
-            [self setViewKey:@"scoreupdated" forData:[NSNumber numberWithBool:YES]];
+            collisionValue += actionBlock.value;
             
             [train ateBlock:actionBlock];
             [actionBlock eaten];
@@ -165,9 +164,34 @@
     
     if(collision) {
         
+        [self setViewKey:@"ateblockvalue" forData:[NSNumber numberWithInteger:collisionValue]];
+        [self setViewKey:@"scoreupdated" forData:[NSNumber numberWithBool:YES]];
+        
         if(collisionBlock == TYPE_BONUS) {
             
             [self bonusRain];
+            
+        }
+        
+        [self bombField];
+        
+    }
+    
+}
+
+- (void)bombField {
+    
+    NSInteger chance = arc4random() % 100;
+    
+    if(chance > (100 - 3)) { //x% chance
+    
+        NSInteger amount = (arc4random() % 10) + 10; //10 to 20 bombs.
+        
+        for(int count = 0; count < amount; count++) {
+            
+            ActionBlock * actionBlock = [[ActionBlock alloc] initActionBlockAsType:TYPE_BOMB atPoint:[self.board randomizePointInsideOfBoard]];
+            
+            [self.actionBlocks addObject:actionBlock];
             
         }
         

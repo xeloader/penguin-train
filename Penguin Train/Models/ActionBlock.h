@@ -14,6 +14,7 @@
 #define TYPE_FOOD 1
 #define TYPE_BONUS 2
 #define TYPE_BONUSRAIN 3
+#define TYPE_BOMB 10
 
 #define CHANCE_BONUS 50
 

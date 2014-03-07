@@ -42,11 +42,6 @@
 
 - (void) didMoveToView:(SKView *) view  {
     
-    ADBannerView * ad = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
-    ad.frame = CGRectMake(ad.frame.origin.x, screenSize.height, ad.frame.size.width, ad.frame.size.height);
-    [self.view addSubview:ad];
-    /*to be continued, can't add delegate in skscene...*/
-    
     /*VARIABLE SETUP*/
     screenSize = [view frame].size;
     
@@ -96,7 +91,7 @@
     id data = [self.currentGame getViewKey:@"died"];
     
     if(data != nil && data != [NSNull null]) {
-        
+
         data = (NSNumber *)data;
         
         [self runAction:[SKAction moveByX:4.0 y:0 duration:0.05] completion:^{
@@ -104,6 +99,8 @@
             [self runAction:[SKAction moveByX:-8.0 y:0 duration:0.05] completion:^{
                
                 [self runAction:[SKAction moveByX:4.0 y:0 duration:0.05] completion:^{
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"died" object:self];
                     
                 }];
                 
@@ -131,13 +128,12 @@
 
 - (void)renderScorePopups {
     
-    id data = [self.currentGame getViewKey:@"ateblock"];
+    id data = [self.currentGame getViewKey:@"ateblockvalue"];
     
     if(data != nil && data != [NSNull null]) {
         
-        ActionBlock * block = data;
-        
-        NSInteger scoreAchieved = block.value;
+        data = (NSNumber *)data;
+        NSInteger scoreAchieved = [data integerValue];
         
         SKNode * popupParent = [self childNodeWithName:@"scorePopups"];
         
@@ -165,14 +161,8 @@
             scorePopup.fontColor = [UIColor redColor];
             
         }
-        
-        /*[self runAction:[SKAction moveByX:BLOCK_SIZE y:0 duration:0.2] completion:^{
-            
-            [self runAction:[SKAction moveByX:-BLOCK_SIZE y:0 duration:0.2]];
-            
-        }];*/ //shake
     
-        scorePopup.text = [NSString stringWithFormat:@"%d", [[self.currentGame getViewKey:@"ateblockvalue"] integerValue]];
+        scorePopup.text = [NSString stringWithFormat:@"%d", scoreAchieved];
         
         CGPoint blockPoint = [[self.currentGame.trains[0] headBlock] realPixelPoint];
         
@@ -535,7 +525,7 @@
                     
                 }
                 
-                if(![blockNode hasActions]) {
+                if(![blockNode hasActions] && actionBlock.type != TYPE_BOMB) {
                     
                     SKAction * engorge = [SKAction scaleTo:1.2 duration:0.2];
                     SKAction * normal = [SKAction scaleTo:1 duration:0.2];
@@ -727,6 +717,12 @@
             
             break;
             
+        case TYPE_BOMB:
+            
+            return @"Fire";
+            
+            break;
+            
         default:
             
             return nil;
@@ -763,13 +759,19 @@
             
         case TYPE_FOOD:
             
-            return @"egg@2x";
+            return @"egg-shadow@2x";
             
             break;
             
         case TYPE_BONUSRAIN:
             
-            return @"egg_ice@2x";
+            return @"egg_icey@2x";
+            
+            break;
+            
+        case TYPE_BOMB:
+            
+            return @"egg_dark@2x";
             
             break;
             

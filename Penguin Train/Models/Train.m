@@ -221,6 +221,20 @@
             
             break;
             
+        case TYPE_BOMB:
+            
+            if(self.blockCount > 1) {
+                
+                self.blockCount--;
+                
+            } else {
+                
+                [self died];
+                
+            }
+            
+            break;
+            
     }
     
 }

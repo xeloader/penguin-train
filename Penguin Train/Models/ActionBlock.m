@@ -146,6 +146,12 @@
             
             break;
             
+        case TYPE_BOMB:
+            
+            return -10;
+            
+            break;
+            
         default:
             
             return 0;
@@ -168,6 +174,7 @@
             break;
             
         case TYPE_BONUSRAIN:
+        case TYPE_BOMB:
             
             return 1;
             
@@ -196,6 +203,12 @@
         case TYPE_BONUS:
             
             return 5;
+            
+            break;
+            
+        case TYPE_BOMB:
+            
+            return 7.5;
             
             break;
             

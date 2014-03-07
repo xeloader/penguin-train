@@ -7,8 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		571C590418C4C6A70043A89B /* egg_ice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 571C590318C4C6A70043A89B /* egg_ice@2x.png */; };
 		571C590618C4C6AD0043A89B /* egg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 571C590518C4C6AD0043A89B /* egg@2x.png */; };
+		572C36A318CA0D6A00030980 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 572C36A218CA0D6A00030980 /* Social.framework */; };
+		572C36A718CA119400030980 /* egg_dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 572C36A418CA119400030980 /* egg_dark@2x.png */; };
+		572C36A818CA119400030980 /* egg-shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 572C36A518CA119400030980 /* egg-shadow@2x.png */; };
+		572C36A918CA119400030980 /* egg_icey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 572C36A618CA119400030980 /* egg_icey@2x.png */; };
 		573FBB8518C5430B0083D4B2 /* penguin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 573FBB8418C5430B0083D4B2 /* penguin@2x.png */; };
 		57964D2C18C38E5300E8C2D3 /* egg_golden@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 57964D2B18C38E5300E8C2D3 /* egg_golden@2x.png */; };
 		57964D2E18C38E5E00E8C2D3 /* egg_dark_burning@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 57964D2D18C38E5E00E8C2D3 /* egg_dark_burning@2x.png */; };
@@ -51,8 +54,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		571C590318C4C6A70043A89B /* egg_ice@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "egg_ice@2x.png"; sourceTree = "<group>"; };
 		571C590518C4C6AD0043A89B /* egg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "egg@2x.png"; sourceTree = "<group>"; };
+		572C36A218CA0D6A00030980 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		572C36A418CA119400030980 /* egg_dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "egg_dark@2x.png"; path = "../../../../Pictures/Sprites/Penguin Train/egg_dark@2x.png"; sourceTree = "<group>"; };
+		572C36A518CA119400030980 /* egg-shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "egg-shadow@2x.png"; path = "../../../../Pictures/Sprites/Penguin Train/egg-shadow@2x.png"; sourceTree = "<group>"; };
+		572C36A618CA119400030980 /* egg_icey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "egg_icey@2x.png"; path = "../../../../Pictures/Sprites/Penguin Train/egg_icey@2x.png"; sourceTree = "<group>"; };
 		573FBB8418C5430B0083D4B2 /* penguin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "penguin@2x.png"; sourceTree = "<group>"; };
 		57964D2B18C38E5300E8C2D3 /* egg_golden@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "egg_golden@2x.png"; sourceTree = "<group>"; };
 		57964D2D18C38E5E00E8C2D3 /* egg_dark_burning@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "egg_dark_burning@2x.png"; sourceTree = "<group>"; };
@@ -100,6 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				572C36A318CA0D6A00030980 /* Social.framework in Frameworks */,
 				579D8CDD18C894EC0064BB21 /* iAd.framework in Frameworks */,
 				57CD1DCA18BCE83F003CFF89 /* CoreGraphics.framework in Frameworks */,
 				57CD1DCC18BCE83F003CFF89 /* UIKit.framework in Frameworks */,
@@ -132,9 +139,11 @@
 		57A1BB7218C362CF005E76BB /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
+				572C36A418CA119400030980 /* egg_dark@2x.png */,
+				572C36A518CA119400030980 /* egg-shadow@2x.png */,
+				572C36A618CA119400030980 /* egg_icey@2x.png */,
 				573FBB8418C5430B0083D4B2 /* penguin@2x.png */,
 				571C590518C4C6AD0043A89B /* egg@2x.png */,
-				571C590318C4C6A70043A89B /* egg_ice@2x.png */,
 				57964D2D18C38E5E00E8C2D3 /* egg_dark_burning@2x.png */,
 				57964D2B18C38E5300E8C2D3 /* egg_golden@2x.png */,
 				57A1BB7918C36445005E76BB /* pixelParticle@2x.png */,
@@ -173,6 +182,7 @@
 		57CD1DC618BCE83F003CFF89 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				572C36A218CA0D6A00030980 /* Social.framework */,
 				579D8CDC18C894EC0064BB21 /* iAd.framework */,
 				579D8CDA18C8946E0064BB21 /* GameKit.framework */,
 				57CD1DC718BCE83F003CFF89 /* Foundation.framework */,
@@ -321,12 +331,14 @@
 				571C590618C4C6AD0043A89B /* egg@2x.png in Resources */,
 				573FBB8518C5430B0083D4B2 /* penguin@2x.png in Resources */,
 				57CD1DD418BCE83F003CFF89 /* InfoPlist.strings in Resources */,
+				572C36A718CA119400030980 /* egg_dark@2x.png in Resources */,
 				57964D2E18C38E5E00E8C2D3 /* egg_dark_burning@2x.png in Resources */,
-				571C590418C4C6A70043A89B /* egg_ice@2x.png in Resources */,
+				572C36A918CA119400030980 /* egg_icey@2x.png in Resources */,
 				57964D2C18C38E5300E8C2D3 /* egg_golden@2x.png in Resources */,
 				57A1BB8218C367F8005E76BB /* WaterDrops.sks in Resources */,
 				57CD1DE718BCE83F003CFF89 /* Images.xcassets in Resources */,
 				57CD1DDD18BCE83F003CFF89 /* Main.storyboard in Resources */,
+				572C36A818CA119400030980 /* egg-shadow@2x.png in Resources */,
 				57A1BB8618C36C75005E76BB /* BonusAura.sks in Resources */,
 				57A1BB7E18C3646E005E76BB /* Fire.sks in Resources */,
 				57A1BB7A18C36445005E76BB /* pixelParticle@2x.png in Resources */,
@@ -481,7 +493,7 @@
 				INFOPLIST_FILE = "Penguin Train/Penguin Train-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0E17413D-7CFF-40D4-921F-C17179B4D155";
+				PROVISIONING_PROFILE = "";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -500,7 +512,7 @@
 				INFOPLIST_FILE = "Penguin Train/Penguin Train-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0E17413D-7CFF-40D4-921F-C17179B4D155";
+				PROVISIONING_PROFILE = "";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
