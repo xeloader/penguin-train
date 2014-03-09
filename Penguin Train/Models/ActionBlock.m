@@ -93,8 +93,13 @@
     NSInteger random = arc4random() % 100;
     
     BOOL bonusChance = (random > (100 - CHANCE_BONUS));
+    BOOL motherChance = (random > (100 - CHANCE_MOTHER));
     
-    if(bonusChance) {
+    if(motherChance) {
+        
+        self.type = TYPE_MOTHER;
+        
+    } else if(bonusChance) {
         
         self.type = TYPE_BONUS;
         
@@ -140,6 +145,12 @@
             
             break;
             
+        case TYPE_MOTHER:
+            
+            return 100;
+            
+            break;
+            
         case TYPE_BONUS:
             
             return 25;
@@ -168,6 +179,7 @@
             
         case TYPE_BONUS:
         case TYPE_FOOD:
+        case TYPE_MOTHER:
             
             return LIFECYCLE_INVINCIBLE;
             
@@ -206,12 +218,8 @@
             
             break;
             
+        case TYPE_MOTHER:
         case TYPE_BOMB:
-            
-            return 7.5;
-            
-            break;
-            
         case TYPE_BONUSRAIN:
             
             return 7.5;

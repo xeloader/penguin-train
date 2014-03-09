@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Victor Ingman. All rights reserved.
 //
 
+#import "GameKit/GameKit.h"
 #import "ScoreCounter.h"
 
 @implementation ScoreCounter
@@ -35,6 +36,9 @@
 - (void)saveHighscore {
     
     if(self.count > [self.class Highscore]) {
+        
+        GKScore * score = [[GKScore alloc] init];
+        score.value = self.count;
         
         [[NSUserDefaults standardUserDefaults] setInteger:self.count forKey:@"highscore"];
         

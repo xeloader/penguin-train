@@ -7,12 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		571ABC0C18CBC7D700344069 /* Snow.sks in Resources */ = {isa = PBXBuildFile; fileRef = 571ABC0A18CBC7D700344069 /* Snow.sks */; };
 		571C590618C4C6AD0043A89B /* egg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 571C590518C4C6AD0043A89B /* egg@2x.png */; };
 		572C36A318CA0D6A00030980 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 572C36A218CA0D6A00030980 /* Social.framework */; };
 		572C36A718CA119400030980 /* egg_dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 572C36A418CA119400030980 /* egg_dark@2x.png */; };
 		572C36A818CA119400030980 /* egg-shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 572C36A518CA119400030980 /* egg-shadow@2x.png */; };
 		572C36A918CA119400030980 /* egg_icey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 572C36A618CA119400030980 /* egg_icey@2x.png */; };
 		573FBB8518C5430B0083D4B2 /* penguin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 573FBB8418C5430B0083D4B2 /* penguin@2x.png */; };
+		574782F818CCE532008315F7 /* arrow_move_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 574782F218CCE532008315F7 /* arrow_move_on@2x.png */; };
+		574782F918CCE532008315F7 /* egg_dark-shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 574782F318CCE532008315F7 /* egg_dark-shadow@2x.png */; };
+		574782FA18CCE532008315F7 /* egg_golden-shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 574782F418CCE532008315F7 /* egg_golden-shadow@2x.png */; };
+		574782FB18CCE532008315F7 /* egg_icey-shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 574782F518CCE532008315F7 /* egg_icey-shadow@2x.png */; };
+		574782FC18CCE532008315F7 /* egg_mother-shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 574782F618CCE532008315F7 /* egg_mother-shadow@2x.png */; };
+		574782FD18CCE532008315F7 /* penguin-shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 574782F718CCE532008315F7 /* penguin-shadow@2x.png */; };
+		5747830518CD020C008315F7 /* IntroductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5747830418CD020C008315F7 /* IntroductionViewController.m */; };
 		57964D2C18C38E5300E8C2D3 /* egg_golden@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 57964D2B18C38E5300E8C2D3 /* egg_golden@2x.png */; };
 		57964D2E18C38E5E00E8C2D3 /* egg_dark_burning@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 57964D2D18C38E5E00E8C2D3 /* egg_dark_burning@2x.png */; };
 		579D8CDB18C8946E0064BB21 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 579D8CDA18C8946E0064BB21 /* GameKit.framework */; };
@@ -35,6 +43,8 @@
 		57CD1DEE18BCE83F003CFF89 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57CD1DED18BCE83F003CFF89 /* XCTest.framework */; };
 		57CD1DEF18BCE83F003CFF89 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57CD1DC718BCE83F003CFF89 /* Foundation.framework */; };
 		57CD1DF018BCE83F003CFF89 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57CD1DCB18BCE83F003CFF89 /* UIKit.framework */; };
+		57D936D118CC8A0200753C82 /* MotherAura.sks in Resources */ = {isa = PBXBuildFile; fileRef = 57D936CF18CC8A0200753C82 /* MotherAura.sks */; };
+		57D936D418CC9C8F00753C82 /* egg_mother@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 57D936D318CC9C8F00753C82 /* egg_mother@2x.png */; };
 		57E7652B18BF818600BD4697 /* ScoreCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E7652A18BF818600BD4697 /* ScoreCounter.m */; };
 		57F76D9018BD2BF200FFFD32 /* Train.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F76D8F18BD2BF200FFFD32 /* Train.m */; };
 		57F76D9618BD336200FFFD32 /* ActionBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F76D9518BD336200FFFD32 /* ActionBlock.m */; };
@@ -54,12 +64,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		571ABC0A18CBC7D700344069 /* Snow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Snow.sks; sourceTree = "<group>"; };
 		571C590518C4C6AD0043A89B /* egg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "egg@2x.png"; sourceTree = "<group>"; };
 		572C36A218CA0D6A00030980 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		572C36A418CA119400030980 /* egg_dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "egg_dark@2x.png"; path = "../../../../Pictures/Sprites/Penguin Train/egg_dark@2x.png"; sourceTree = "<group>"; };
 		572C36A518CA119400030980 /* egg-shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "egg-shadow@2x.png"; path = "../../../../Pictures/Sprites/Penguin Train/egg-shadow@2x.png"; sourceTree = "<group>"; };
 		572C36A618CA119400030980 /* egg_icey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "egg_icey@2x.png"; path = "../../../../Pictures/Sprites/Penguin Train/egg_icey@2x.png"; sourceTree = "<group>"; };
 		573FBB8418C5430B0083D4B2 /* penguin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "penguin@2x.png"; sourceTree = "<group>"; };
+		574782F218CCE532008315F7 /* arrow_move_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arrow_move_on@2x.png"; path = "../../../../Pictures/Sprites/Penguin Train/arrow_move_on@2x.png"; sourceTree = "<group>"; };
+		574782F318CCE532008315F7 /* egg_dark-shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "egg_dark-shadow@2x.png"; path = "../../../../Pictures/Sprites/Penguin Train/egg_dark-shadow@2x.png"; sourceTree = "<group>"; };
+		574782F418CCE532008315F7 /* egg_golden-shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "egg_golden-shadow@2x.png"; path = "../../../../Pictures/Sprites/Penguin Train/egg_golden-shadow@2x.png"; sourceTree = "<group>"; };
+		574782F518CCE532008315F7 /* egg_icey-shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "egg_icey-shadow@2x.png"; path = "../../../../Pictures/Sprites/Penguin Train/egg_icey-shadow@2x.png"; sourceTree = "<group>"; };
+		574782F618CCE532008315F7 /* egg_mother-shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "egg_mother-shadow@2x.png"; path = "../../../../Pictures/Sprites/Penguin Train/egg_mother-shadow@2x.png"; sourceTree = "<group>"; };
+		574782F718CCE532008315F7 /* penguin-shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "penguin-shadow@2x.png"; path = "../../../../Pictures/Sprites/Penguin Train/penguin-shadow@2x.png"; sourceTree = "<group>"; };
+		5747830318CD020C008315F7 /* IntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroductionViewController.h; sourceTree = "<group>"; };
+		5747830418CD020C008315F7 /* IntroductionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroductionViewController.m; sourceTree = "<group>"; };
 		57964D2B18C38E5300E8C2D3 /* egg_golden@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "egg_golden@2x.png"; sourceTree = "<group>"; };
 		57964D2D18C38E5E00E8C2D3 /* egg_dark_burning@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "egg_dark_burning@2x.png"; sourceTree = "<group>"; };
 		579D8CDA18C8946E0064BB21 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
@@ -87,6 +106,8 @@
 		57CD1DE618BCE83F003CFF89 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		57CD1DEC18BCE83F003CFF89 /* Penguin TrainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Penguin TrainTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57CD1DED18BCE83F003CFF89 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		57D936CF18CC8A0200753C82 /* MotherAura.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MotherAura.sks; sourceTree = "<group>"; };
+		57D936D318CC9C8F00753C82 /* egg_mother@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "egg_mother@2x.png"; path = "../../../../Pictures/Sprites/Penguin Train/egg_mother@2x.png"; sourceTree = "<group>"; };
 		57E7652918BF818600BD4697 /* ScoreCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScoreCounter.h; path = Models/ScoreCounter.h; sourceTree = "<group>"; };
 		57E7652A18BF818600BD4697 /* ScoreCounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScoreCounter.m; path = Models/ScoreCounter.m; sourceTree = "<group>"; };
 		57F76D8E18BD2BF200FFFD32 /* Train.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Train.h; path = Models/Train.h; sourceTree = "<group>"; };
@@ -139,6 +160,13 @@
 		57A1BB7218C362CF005E76BB /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
+				574782F218CCE532008315F7 /* arrow_move_on@2x.png */,
+				574782F318CCE532008315F7 /* egg_dark-shadow@2x.png */,
+				574782F418CCE532008315F7 /* egg_golden-shadow@2x.png */,
+				574782F518CCE532008315F7 /* egg_icey-shadow@2x.png */,
+				574782F618CCE532008315F7 /* egg_mother-shadow@2x.png */,
+				574782F718CCE532008315F7 /* penguin-shadow@2x.png */,
+				57D936D318CC9C8F00753C82 /* egg_mother@2x.png */,
 				572C36A418CA119400030980 /* egg_dark@2x.png */,
 				572C36A518CA119400030980 /* egg-shadow@2x.png */,
 				572C36A618CA119400030980 /* egg_icey@2x.png */,
@@ -157,6 +185,8 @@
 				57A1BB7C18C3646E005E76BB /* Fire.sks */,
 				57A1BB8018C367F8005E76BB /* WaterDrops.sks */,
 				57A1BB8418C36C75005E76BB /* BonusAura.sks */,
+				571ABC0A18CBC7D700344069 /* Snow.sks */,
+				57D936CF18CC8A0200753C82 /* MotherAura.sks */,
 			);
 			name = Particles;
 			sourceTree = "<group>";
@@ -201,6 +231,8 @@
 				57CD1DDB18BCE83F003CFF89 /* Main.storyboard */,
 				57CD1DDE18BCE83F003CFF89 /* ViewController.h */,
 				57CD1DDF18BCE83F003CFF89 /* ViewController.m */,
+				5747830318CD020C008315F7 /* IntroductionViewController.h */,
+				5747830418CD020C008315F7 /* IntroductionViewController.m */,
 				57F76D8D18BD2A4600FFFD32 /* Models */,
 				57CD1DE118BCE83F003CFF89 /* GameRender.h */,
 				57CD1DE218BCE83F003CFF89 /* GameRender.m */,
@@ -331,17 +363,26 @@
 				571C590618C4C6AD0043A89B /* egg@2x.png in Resources */,
 				573FBB8518C5430B0083D4B2 /* penguin@2x.png in Resources */,
 				57CD1DD418BCE83F003CFF89 /* InfoPlist.strings in Resources */,
+				574782FA18CCE532008315F7 /* egg_golden-shadow@2x.png in Resources */,
+				571ABC0C18CBC7D700344069 /* Snow.sks in Resources */,
+				574782F818CCE532008315F7 /* arrow_move_on@2x.png in Resources */,
+				574782FD18CCE532008315F7 /* penguin-shadow@2x.png in Resources */,
 				572C36A718CA119400030980 /* egg_dark@2x.png in Resources */,
+				57D936D118CC8A0200753C82 /* MotherAura.sks in Resources */,
 				57964D2E18C38E5E00E8C2D3 /* egg_dark_burning@2x.png in Resources */,
 				572C36A918CA119400030980 /* egg_icey@2x.png in Resources */,
+				574782FB18CCE532008315F7 /* egg_icey-shadow@2x.png in Resources */,
 				57964D2C18C38E5300E8C2D3 /* egg_golden@2x.png in Resources */,
 				57A1BB8218C367F8005E76BB /* WaterDrops.sks in Resources */,
+				574782FC18CCE532008315F7 /* egg_mother-shadow@2x.png in Resources */,
 				57CD1DE718BCE83F003CFF89 /* Images.xcassets in Resources */,
 				57CD1DDD18BCE83F003CFF89 /* Main.storyboard in Resources */,
 				572C36A818CA119400030980 /* egg-shadow@2x.png in Resources */,
 				57A1BB8618C36C75005E76BB /* BonusAura.sks in Resources */,
+				57D936D418CC9C8F00753C82 /* egg_mother@2x.png in Resources */,
 				57A1BB7E18C3646E005E76BB /* Fire.sks in Resources */,
 				57A1BB7A18C36445005E76BB /* pixelParticle@2x.png in Resources */,
+				574782F918CCE532008315F7 /* egg_dark-shadow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +405,7 @@
 				57CD1DE318BCE83F003CFF89 /* GameRender.m in Sources */,
 				57E7652B18BF818600BD4697 /* ScoreCounter.m in Sources */,
 				57CD1DE018BCE83F003CFF89 /* ViewController.m in Sources */,
+				5747830518CD020C008315F7 /* IntroductionViewController.m in Sources */,
 				57CD1DDA18BCE83F003CFF89 /* AppDelegate.m in Sources */,
 				57F76D9618BD336200FFFD32 /* ActionBlock.m in Sources */,
 				57F76D9C18BD391E00FFFD32 /* Block.m in Sources */,

@@ -55,7 +55,7 @@
 - (void) calculateStartingPosition {
     
     startingPosition.x = BLOCK; //one block
-    startingPosition.y = self.identifier + BLOCK;
+    startingPosition.y = self.identifier + (4 * BLOCK);
     
 }
 
@@ -215,6 +215,16 @@
             
             break;
             
+        case TYPE_MOTHER:
+            
+            if(self.blockCount > 1) {
+            
+                self.blockCount /= 2;
+            
+            }
+            
+            break;
+            
         case TYPE_BONUS:
             
             self.blockCount += 2;
@@ -224,6 +234,8 @@
         case TYPE_BOMB:
             
             if(self.blockCount > 1) {
+                
+                
                 
                 self.blockCount--;
                 

@@ -164,6 +164,7 @@
     
     if(collision) {
         
+        [self setViewKey:@"blocktype" forData:[NSNumber numberWithInt:collisionBlock]];
         [self setViewKey:@"ateblockvalue" forData:[NSNumber numberWithInteger:collisionValue]];
         [self setViewKey:@"scoreupdated" forData:[NSNumber numberWithBool:YES]];
         
@@ -173,7 +174,11 @@
             
         }
         
-        //[self bombField]; //disabled for now.
+        if(collisionBlock != TYPE_BOMB) {
+        
+            [self bombField];
+            
+        }
         
     }
     
@@ -183,9 +188,9 @@
     
     NSInteger chance = arc4random() % 100;
     
-    if(chance > (100 - 3)) { //x% chance
+    if(chance > (100 - 5)) { //x% chance
     
-        NSInteger amount = (arc4random() % 10) + 10; //10 to 20 bombs.
+        NSInteger amount = (arc4random() % 5) + 5; //5 to 10 bombs.
         
         for(int count = 0; count < amount; count++) {
             

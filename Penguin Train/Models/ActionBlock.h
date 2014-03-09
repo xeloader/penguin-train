@@ -14,9 +14,11 @@
 #define TYPE_FOOD 1
 #define TYPE_BONUS 2
 #define TYPE_BONUSRAIN 3
+#define TYPE_MOTHER 4
 #define TYPE_BOMB 10
 
-#define CHANCE_BONUS 50
+#define CHANCE_BONUS 25
+#define CHANCE_MOTHER 2
 
 #define LIFECYCLE_INVINCIBLE -1
 #define LIFECYCLE_DEAD 0

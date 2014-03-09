@@ -8,12 +8,17 @@
 #import "iAd/iAd.h"
 
 #import "ViewController.h"
+#import "IntroductionViewController.h"
 #import "GameRender.h"
+
+#define INTRODUCTION_TAG 5
 
 @interface ViewController() {
 
     ADBannerView * ad;
     //googleAd * gad;
+    
+    BOOL firstTime;
 
 }
 
@@ -27,6 +32,32 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self presentGameScene];
+    
+}
+
+- (void)viewDidAppear {
+    
+    if(YES) {
+        
+        //[defaults setBool:NO forKey:@"first"];
+        
+        UIStoryboard *storyboard = self.storyboard;
+        IntroductionViewController *viewController = (IntroductionViewController *)[storyboard instantiateViewControllerWithIdentifier:@"introduction"];
+        
+        [self presentViewController:viewController animated:YES completion:nil];
+        
+        //[[[[UIApplication sharedApplication] delegate] window] setRootViewController:viewController];
+        //[self presentViewController:viewController animated:YES completion:nil];
+        
+    } else {
+        
+    }
+    
+}
+
+- (void)presentGameScene {
     
     /*Messaging between subviews*/
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageReciever:) name:@"viewcontroller" object:nil];
@@ -42,19 +73,30 @@
     self.gameView = (SKView *) self.view;
     
     self.gameView.showsFPS = YES;
-    self.gameView.showsNodeCount = YES;
+    self.gameView.showsNodeCount = NO;
     
     self.gameScene = [GameRender sceneWithSize:self.gameView.bounds.size];
     self.gameScene.scaleMode = SKSceneScaleModeAspectFill;
     
-    /*PRESENT*/
     [self.gameView presentScene:self.gameScene];
     
 }
 
 - (void)bannerViewActionDidFinish:(ADBannerView *)banner {
     
+    [self startGame];
+    
+}
+
+- (void)startGame {
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"render" object:@"startgame"];
+    
+}
+
+- (void)forceStartGame {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"render" object:@"forcestartgame"];
     
 }
 
@@ -68,9 +110,11 @@
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
     
+    [self forceStartGame];
+    
     if(YES) {
     
-        NSLog(@"Fuck, no ad.");
+        //NSLog(@"Fuck, no ad.");
     
     }
     
@@ -100,16 +144,23 @@
 
 - (void)showAd {
     
+    /*if((arc4random() % 4) > 1.0) {
+        
+        [self bannerView:nil didFailToReceiveAdWithError:nil];
+        
+    } else {*/
+    
     if([ad isBannerLoaded]) {
         
         ad.hidden = NO;
         
-    } /*else if([gad isBannerLoaded]) {
+    }/*else if([gad isBannerLoaded]) {
         
         
         
     }*/
 
+    //}
     
 }
 

@@ -67,13 +67,21 @@
         
         if([message isEqualToString:@"pausegame"]) {
             
-            [self pauseGame];
+            //[self pauseGame];
+            
+        }
+        
+        if([message isEqualToString:@"forcestartgame"]) {
+            
+            [self stopCountdown];
+            [self unpauseGame];
             
         }
         
         if([message isEqualToString:@"startgame"]) {
             
-            [self countdownAndStartgame];
+            //[self countdownAndStartgame];
+            [self unpauseGame];
             
         }
         
@@ -99,18 +107,41 @@
     
 }
 
+- (void)stopCountdown {
+    
+    SKLabelNode * countdown = (SKLabelNode *)[self childNodeWithName:@"countdown"];
+    
+    if(countdown) {
+        
+        [countdown removeAllActions];
+        [countdown removeFromParent];
+        
+    }
+    
+}
+
 - (void)countdownAndStartgame {
     
     self.paused = NO;
     
-    SKLabelNode * countdown = [SKLabelNode node];
-    countdown.text = [NSString stringWithFormat:@"%ld", (long)3];
-    countdown.fontSize = 24;
-    countdown.fontName = [NSString stringWithFormat:@"%@-bold", fontname];
-    countdown.fontColor = [UIColor blackColor];
-    countdown.position = CGPointMake(screenSize.width / 2, screenSize.height / 2);
+    SKLabelNode * countdown = (SKLabelNode *)[self childNodeWithName:@"countdown"];
     
-    [self addChild:countdown];
+    if(!countdown) {
+    
+        countdown = [SKLabelNode node];
+        countdown.name = @"countdown";
+        countdown.text = [NSString stringWithFormat:@"%ld", (long)3];
+        countdown.fontSize = 24;
+        countdown.fontName = [NSString stringWithFormat:@"%@-bold", fontname];
+        countdown.fontColor = [UIColor blackColor];
+        countdown.position = CGPointMake(screenSize.width / 2, screenSize.height / 2);
+        
+        [self addChild:countdown];
+        
+    }
+    
+    countdown.alpha = 1;
+    countdown.text = [NSString stringWithFormat:@"%ld", (long)3];
     
     [countdown runAction:[SKAction fadeOutWithDuration:1] completion:^{
         
@@ -134,7 +165,7 @@
             }];
             
         }];
-
+        
         
     }];
     
@@ -175,14 +206,33 @@
 
 - (void)update:(CFTimeInterval)currentTime { //always
     
+    [self renderBackgroundActions];
+    
     [self renderScorePopups];
     [self renderEarthquakeIfDead];
     
-    [self renderEmitters];
-    [self renderActionBlocks];
+    [self renderActionblocksWithEmitters];
+    
+    [self renderActionEffects];
     
     [self renderTrainBlocks];
     [self renderScores];
+    
+}
+
+- (void)renderBackgroundActions {
+    
+    SKEmitterNode * snow = (SKEmitterNode *)[self childNodeWithName:@"snow"];
+    
+    if(!snow) {
+        
+        snow = [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:@"Snow" ofType:@"sks"]];
+        snow.position = CGPointMake(screenSize.width / 2, screenSize.height);
+        snow.name = @"snow";
+        
+        [self addChild:snow];
+        
+    }
     
 }
 
@@ -194,15 +244,15 @@
 
         data = (NSNumber *)data;
         
+        [self showAd];
+        //[self pauseGame]; //stops countdown.
+        //[self countdownAndStartgame];
+        
         [self runAction:[SKAction moveByX:4.0 y:0 duration:0.05] completion:^{
             
             [self runAction:[SKAction moveByX:-8.0 y:0 duration:0.05] completion:^{
                
                 [self runAction:[SKAction moveByX:4.0 y:0 duration:0.05] completion:^{
-                    
-                    [self showAd];
-                    [self pauseGame];
-                    [self countdownAndStartgame];
                     
                 }];
                 
@@ -233,6 +283,7 @@
     
     //[self setPaused:YES];
     self.currentGame.paused = YES;
+    [self stopCountdown];
     
 }
 
@@ -293,87 +344,6 @@
             [scorePopup removeFromParent];
             
         }];
-        
-    }
-    
-}
-
-- (void)renderEmitters {
-    
-    SKNode * emitterParentNode = [self childNodeWithName:@"emitterblocks"];
-    
-    if(!emitterParentNode) {
-        
-        emitterParentNode = [SKNode node];
-        emitterParentNode.name = @"emitterblocks";
-        
-        [self addChild:emitterParentNode];
-        
-    }
-        
-    NSInteger actionBlockCount = 0;
-    
-    for(ActionBlock * actionBlock in self.currentGame.actionBlocks) {
-        
-        SKEmitterNode * emitterBlock = (SKEmitterNode *)[emitterParentNode childNodeWithName:[NSString stringWithFormat:@"%ld", (long)actionBlockCount]];
-        
-        NSInteger blockType = actionBlock.type;
-        CGPoint blockPoint = [actionBlock realPixelPoint];
-        
-        if(!emitterBlock) {
-            
-            NSString * particlePath = [[NSBundle mainBundle] pathForResource:[self.class particleNameForType:blockType andTheme:self.theme] ofType:@"sks"];
-            
-            emitterBlock = [NSKeyedUnarchiver unarchiveObjectWithFile:particlePath];
-            emitterBlock.particleScale = emitterBlock.particleScale * ((float)BLOCK_SIZE / 16.0);
-            emitterBlock.name = [NSString stringWithFormat:@"%ld", (long)actionBlockCount];
-            //emitterBlock.targetNode = [[self childNodeWithName:@"actionblocks"] childNodeWithName:[NSString stringWithFormat:@"%d", actionBlockCount]];
-            
-            [emitterParentNode addChild:emitterBlock];
-            
-        }
-        
-        if(blockType == TYPE_FOOD) {
-            
-            emitterBlock.hidden = YES;
-            
-        } else {
-            
-            emitterBlock.hidden = NO;
-            
-        }
-        
-        emitterBlock.position = blockPoint;
-        
-        actionBlockCount++;
-        
-    }
-    
-    [self removeInactiveEmitters];
-    
-}
-
-- (void)removeInactiveEmitters {
-    
-    SKNode * actionBlocksNode = [self childNodeWithName:@"emitterblocks"];
-    
-    if(actionBlocksNode) {
-        
-        NSInteger renderedBlockCount = [actionBlocksNode.children count];
-        NSInteger blockCount = [self.currentGame.actionBlocks count];
-        
-        if(renderedBlockCount > blockCount) {
-            
-            NSRange blocksToRemove;
-            blocksToRemove.location = blockCount;
-            blocksToRemove.length = renderedBlockCount - blockCount;
-            
-            NSArray * dataToRemove = [actionBlocksNode children];
-            NSArray * renderedBlocksToRemove = [dataToRemove subarrayWithRange:blocksToRemove];
-            
-            [actionBlocksNode removeChildrenInArray:renderedBlocksToRemove];
-            
-        }
         
     }
     
@@ -489,7 +459,7 @@
     
 }
 
-- (void) renderTrainBlocks {
+- (void)renderTrainBlocks {
     
     NSInteger trainIndex = 0;
     
@@ -524,8 +494,11 @@
                 CGSize blockSize = trainBlock.realPixelSize;
                 
                 //blockNode = [SKSpriteNode spriteNodeWithColor:[playerTrain colorIdentifier] size:blockSize];
-                blockNode = [SKSpriteNode spriteNodeWithImageNamed:@"penguin@2x"];
-                blockNode.size = blockSize;
+                blockNode = [SKSpriteNode spriteNodeWithImageNamed:@"penguin-shadow@2x"];
+                
+                CGSize penguinSize = CGSizeMake(blockSize.width, blockSize.height + (BLOCK_SIZE / 16));
+                
+                blockNode.size = penguinSize;
                 blockNode.position = [trainBlock realPixelPoint];
                 blockNode.name = [NSString stringWithFormat:@"%ld", (long)blockIndex];
                 
@@ -572,11 +545,23 @@
             NSArray * dataToRemove = [trainNode children];
             NSArray * renderedBlocksToRemove = [dataToRemove subarrayWithRange:blocksToRemove];
             
+            SKAction * dropDead = [SKAction sequence:@[
+                                                       [SKAction rotateToAngle:M_PI_2 duration:0.2],
+                                                       [SKAction waitForDuration:0.1],
+                                                       [SKAction fadeOutWithDuration:0.2]
+                                                       ]];
+            
             for(SKSpriteNode * renderedBlock in renderedBlocksToRemove) {
                 
+                [dropDead setTimingMode:SKActionTimingEaseIn];
+                
+                [renderedBlock runAction:dropDead completion:^{
+                    
+                    [renderedBlock removeFromParent];
+                    
+                }];
+                
             }
-            
-            [trainNode removeChildrenInArray:renderedBlocksToRemove];
             
         }
         
@@ -586,86 +571,125 @@
     
 }
 
-- (void) renderActionBlocks {
-
-    SKNode * actionBlocksNode = [self childNodeWithName:@"actionblocks"];
+- (void)renderActionEffects {
     
-    if(!actionBlocksNode) {
-        
-        actionBlocksNode = [SKNode node];
-        actionBlocksNode.name = @"actionblocks";
-        [self addChild:actionBlocksNode];
-        
-    }
+    /*ATE BLOCK*/
+    id data = [self.currentGame getViewKey:@"blocktype"];
     
-    if(actionBlocksNode) {
+    if(data && data != [NSNull null]) {
         
-        NSInteger actionBlockIndex = 0;
+        data = (NSNumber *)data;
         
-        for(ActionBlock * actionBlock in self.currentGame.actionBlocks) {
-        
-            SKSpriteNode * blockNode = (SKSpriteNode *)[actionBlocksNode childNodeWithName:[NSString stringWithFormat:@"%ld", (long)actionBlockIndex]];
+        if([data integerValue] == TYPE_BOMB) {
             
-            NSString * spriteImageName = [self.class spriteForType:actionBlock.type];
-            UIColor * blockColor = actionBlock.colorIdentifier;
-            CGPoint blockPoint = [actionBlock realPixelPoint];
+            SKNode * train = [self childNodeWithName:@"train0"];
             
-            if(!blockNode) {
+            if(train) {
                 
-                if(spriteImageName) {
-                    
-                    blockNode = [SKSpriteNode spriteNodeWithImageNamed:spriteImageName];
-                    blockNode.size = [actionBlock realPixelSize];
-                    
-                } else {
+                SKAction * colorRed = [SKAction sequence:@[
+                                                           [SKAction colorizeWithColor:[UIColor redColor] colorBlendFactor:1 duration:0.2],
+                                                           [SKAction colorizeWithColor:[UIColor redColor] colorBlendFactor:0 duration:0.2]
+                                                           ]];
                 
-                    blockNode = [SKSpriteNode spriteNodeWithColor:blockColor size:[actionBlock realPixelSize]];
+                [[train children] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                     
-                }
+                    [obj runAction:colorRed];
+                    
+                    *stop = (idx > 3);
+                    
+                }];
                 
-                blockNode.position = blockPoint;
-                blockNode.name = [NSString stringWithFormat:@"%ld", (long)actionBlockIndex];
-                
-                [actionBlocksNode addChild:blockNode];
-                
-            } else {
-            
-                blockNode.position = blockPoint;
-                
-                if(!spriteImageName) {
-                
-                    blockNode.color = blockColor;
+                [self runAction:[SKAction moveByX:2 y:0 duration:0.05] completion:^{
                     
-                } else {
+                    [self runAction:[SKAction moveByX:-2 y:0 duration:0.05]];
                     
-                    blockNode.texture = [SKTexture textureWithImageNamed:spriteImageName];
-                    
-                }
-                
-                if(![blockNode hasActions] && actionBlock.type != TYPE_BOMB) {
-                    
-                    SKAction * engorge = [SKAction scaleTo:1.2 duration:0.2];
-                    SKAction * normal = [SKAction scaleTo:1 duration:0.2];
-                    
-                    [blockNode runAction:engorge completion:^{
-                        
-                        [blockNode runAction:normal];
-                        
-                    }];
-                    
-                }
+                }];
                 
             }
-            
-            actionBlockIndex++;
             
         }
         
     }
     
-    [self removeInactiveActionBlocks];
     
-    //end
+}
+
+- (void)renderActionblocksWithEmitters {
+    
+    NSInteger index = 0; //will change in the loop later on.
+    
+    SKNode * actionblocksContainer = [self childNodeWithName:@"actionblocks"];
+    
+    if(!actionblocksContainer) {
+        
+        actionblocksContainer = [SKNode node];
+        actionblocksContainer.name = @"actionblocks";
+        
+        [self addChild:actionblocksContainer];
+        
+    }
+    
+    for(ActionBlock * actionblock in self.currentGame.actionBlocks) {
+        
+        NSString * identifier = [NSString stringWithFormat:@"%ld", (long)index];
+        NSString * imageIdentifier = [self.class spriteForType:actionblock.type];
+        
+        SKSpriteNode * renderedActionblock = (SKSpriteNode *)[actionblocksContainer childNodeWithName:identifier];
+        
+        if(!renderedActionblock) {
+            
+            renderedActionblock = [SKSpriteNode node];
+            renderedActionblock.name = identifier;
+            
+            CGSize eggSize = CGSizeMake([actionblock realPixelSize].width, [actionblock realPixelSize].height + (BLOCK_SIZE / 16));
+            
+            renderedActionblock.size = eggSize;
+            
+            [actionblocksContainer addChild:renderedActionblock];
+            
+        }
+        
+        renderedActionblock.position = [actionblock realPixelPoint];
+        renderedActionblock.texture = [SKTexture textureWithImageNamed:imageIdentifier];
+        
+        if(![renderedActionblock hasActions] && actionblock.type != TYPE_BOMB) {
+            
+            SKAction * sizeWobble = [SKAction sequence:@[
+                                                         [SKAction scaleTo:1.2 duration:0.2],
+                                                         [SKAction scaleTo:1.0 duration:0.2]
+                                                         ]];
+            
+            [renderedActionblock runAction:sizeWobble];
+            
+        }
+        
+        /*EMITTER*/
+        
+        NSString * emitterIdentifier = [self.class particleNameForType:actionblock.type andTheme:self.theme];
+        NSString * emitterPath = [[NSBundle mainBundle] pathForResource:emitterIdentifier ofType:@"sks"];
+        
+        SKEmitterNode * renderedEmitter = (SKEmitterNode *)[renderedActionblock childNodeWithName:emitterIdentifier];
+        
+        if(!renderedEmitter) {
+            
+            renderedEmitter = (emitterPath) ? [NSKeyedUnarchiver unarchiveObjectWithFile:emitterPath] : [SKEmitterNode node];
+            renderedEmitter.name = emitterIdentifier;
+            
+            
+            [renderedActionblock removeAllChildren]; //remove old emitters.
+            [renderedActionblock addChild:renderedEmitter];
+            
+        }
+        
+        renderedEmitter.zPosition = (actionblock.type == TYPE_BOMB) ? 1 : -1; //bombs burn in front of egg
+        renderedEmitter.position = (actionblock.type == TYPE_BOMB) ? CGPointMake(renderedEmitter.position.x, -(BLOCK_SIZE / 2)) : renderedEmitter.position;
+        renderedEmitter.hidden = (actionblock.type == TYPE_FOOD); //if food, hidden.
+        
+        index++;
+        
+    }
+    
+    [self removeInactiveActionBlocks];
     
 }
 
@@ -704,7 +728,7 @@
     
 }
 
-- (void) swipeHandler:(UISwipeGestureRecognizer *)gestureRecognizer {
+- (void)swipeHandler:(UISwipeGestureRecognizer *)gestureRecognizer {
     
     CGVector directionRequested;
     directionRequested.dx = DIRECTION_UNDEFINED;
@@ -759,7 +783,7 @@
     
 }
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
     for (UITouch *touch in touches) {
         
@@ -821,10 +845,15 @@
     
     switch(requestedType) {
             
-        case TYPE_FOOD:
         case TYPE_BONUS:
             
                 return @"BonusAura";
+            
+            break;
+            
+        case TYPE_MOTHER:
+            
+            return @"MotherAura";
             
             break;
             
@@ -870,7 +899,7 @@
             
         case TYPE_BONUS:
             
-            return @"egg_golden@2x";
+            return @"egg_golden-shadow@2x";
             
             break;
             
@@ -882,13 +911,19 @@
             
         case TYPE_BONUSRAIN:
             
-            return @"egg_icey@2x";
+            return @"egg_icey-shadow@2x";
+            
+            break;
+            
+        case TYPE_MOTHER:
+            
+            return @"egg_mother-shadow@2x";
             
             break;
             
         case TYPE_BOMB:
             
-            return @"egg_dark@2x";
+            return @"egg_dark-shadow@2x";
             
             break;
             
