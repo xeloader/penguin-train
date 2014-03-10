@@ -43,11 +43,6 @@
         
         //[defaults setBool:NO forKey:@"first"];
         
-        UIStoryboard *storyboard = self.storyboard;
-        IntroductionViewController *viewController = (IntroductionViewController *)[storyboard instantiateViewControllerWithIdentifier:@"introduction"];
-        
-        [self presentViewController:viewController animated:YES completion:nil];
-        
         //[[[[UIApplication sharedApplication] delegate] window] setRootViewController:viewController];
         //[self presentViewController:viewController animated:YES completion:nil];
         
@@ -84,13 +79,19 @@
 
 - (void)bannerViewActionDidFinish:(ADBannerView *)banner {
     
-    [self startGame];
+    [self forceStartGame];
     
 }
 
 - (void)startGame {
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"render" object:@"startgame"];
+    
+}
+
+- (void)pauseGame {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"render" object:@"pausegame"];
     
 }
 
@@ -102,7 +103,7 @@
 
 - (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave {
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"render" object:@"pausegame"];
+    [self pauseGame];
     
     return YES;
     
@@ -110,7 +111,7 @@
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
     
-    [self forceStartGame];
+    //[self forceStartGame];
     
     if(YES) {
     
@@ -135,6 +136,18 @@
         if([message isEqualToString:@"hidead"]) {
             
             [self hideAd];
+            
+        }
+
+        if([message isEqualToString:@"startgame"]) {
+            
+            [self startGame];
+            
+        }
+        
+        if([message isEqualToString:@"pausegame"]) {
+            
+            [self pauseGame];
             
         }
         

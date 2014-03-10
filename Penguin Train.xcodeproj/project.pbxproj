@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		571ABC0C18CBC7D700344069 /* Snow.sks in Resources */ = {isa = PBXBuildFile; fileRef = 571ABC0A18CBC7D700344069 /* Snow.sks */; };
 		571C590618C4C6AD0043A89B /* egg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 571C590518C4C6AD0043A89B /* egg@2x.png */; };
+		572B472218CDEFB5005F3F41 /* IntroductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 572B472118CDEFB5005F3F41 /* IntroductionViewController.m */; };
+		572B472418CE0771005F3F41 /* egg-crack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 572B472318CE0771005F3F41 /* egg-crack@2x.png */; };
+		572B472718CE0BE6005F3F41 /* EasterEggViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 572B472618CE0BE6005F3F41 /* EasterEggViewController.m */; };
+		572B472918CE0DB9005F3F41 /* egg_easter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 572B472818CE0DB9005F3F41 /* egg_easter@2x.png */; };
 		572C36A318CA0D6A00030980 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 572C36A218CA0D6A00030980 /* Social.framework */; };
 		572C36A718CA119400030980 /* egg_dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 572C36A418CA119400030980 /* egg_dark@2x.png */; };
 		572C36A818CA119400030980 /* egg-shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 572C36A518CA119400030980 /* egg-shadow@2x.png */; };
@@ -20,7 +24,6 @@
 		574782FB18CCE532008315F7 /* egg_icey-shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 574782F518CCE532008315F7 /* egg_icey-shadow@2x.png */; };
 		574782FC18CCE532008315F7 /* egg_mother-shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 574782F618CCE532008315F7 /* egg_mother-shadow@2x.png */; };
 		574782FD18CCE532008315F7 /* penguin-shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 574782F718CCE532008315F7 /* penguin-shadow@2x.png */; };
-		5747830518CD020C008315F7 /* IntroductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5747830418CD020C008315F7 /* IntroductionViewController.m */; };
 		57964D2C18C38E5300E8C2D3 /* egg_golden@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 57964D2B18C38E5300E8C2D3 /* egg_golden@2x.png */; };
 		57964D2E18C38E5E00E8C2D3 /* egg_dark_burning@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 57964D2D18C38E5E00E8C2D3 /* egg_dark_burning@2x.png */; };
 		579D8CDB18C8946E0064BB21 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 579D8CDA18C8946E0064BB21 /* GameKit.framework */; };
@@ -66,6 +69,12 @@
 /* Begin PBXFileReference section */
 		571ABC0A18CBC7D700344069 /* Snow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Snow.sks; sourceTree = "<group>"; };
 		571C590518C4C6AD0043A89B /* egg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "egg@2x.png"; sourceTree = "<group>"; };
+		572B472018CDEFB5005F3F41 /* IntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroductionViewController.h; sourceTree = "<group>"; };
+		572B472118CDEFB5005F3F41 /* IntroductionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroductionViewController.m; sourceTree = "<group>"; };
+		572B472318CE0771005F3F41 /* egg-crack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "egg-crack@2x.png"; path = "../../../../Pictures/Sprites/Penguin Train/egg-crack@2x.png"; sourceTree = "<group>"; };
+		572B472518CE0BE6005F3F41 /* EasterEggViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasterEggViewController.h; sourceTree = "<group>"; };
+		572B472618CE0BE6005F3F41 /* EasterEggViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasterEggViewController.m; sourceTree = "<group>"; };
+		572B472818CE0DB9005F3F41 /* egg_easter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "egg_easter@2x.png"; path = "../../../../Pictures/Sprites/Penguin Train/egg_easter@2x.png"; sourceTree = "<group>"; };
 		572C36A218CA0D6A00030980 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		572C36A418CA119400030980 /* egg_dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "egg_dark@2x.png"; path = "../../../../Pictures/Sprites/Penguin Train/egg_dark@2x.png"; sourceTree = "<group>"; };
 		572C36A518CA119400030980 /* egg-shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "egg-shadow@2x.png"; path = "../../../../Pictures/Sprites/Penguin Train/egg-shadow@2x.png"; sourceTree = "<group>"; };
@@ -77,8 +86,6 @@
 		574782F518CCE532008315F7 /* egg_icey-shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "egg_icey-shadow@2x.png"; path = "../../../../Pictures/Sprites/Penguin Train/egg_icey-shadow@2x.png"; sourceTree = "<group>"; };
 		574782F618CCE532008315F7 /* egg_mother-shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "egg_mother-shadow@2x.png"; path = "../../../../Pictures/Sprites/Penguin Train/egg_mother-shadow@2x.png"; sourceTree = "<group>"; };
 		574782F718CCE532008315F7 /* penguin-shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "penguin-shadow@2x.png"; path = "../../../../Pictures/Sprites/Penguin Train/penguin-shadow@2x.png"; sourceTree = "<group>"; };
-		5747830318CD020C008315F7 /* IntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroductionViewController.h; sourceTree = "<group>"; };
-		5747830418CD020C008315F7 /* IntroductionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroductionViewController.m; sourceTree = "<group>"; };
 		57964D2B18C38E5300E8C2D3 /* egg_golden@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "egg_golden@2x.png"; sourceTree = "<group>"; };
 		57964D2D18C38E5E00E8C2D3 /* egg_dark_burning@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "egg_dark_burning@2x.png"; sourceTree = "<group>"; };
 		579D8CDA18C8946E0064BB21 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
@@ -160,6 +167,8 @@
 		57A1BB7218C362CF005E76BB /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
+				572B472818CE0DB9005F3F41 /* egg_easter@2x.png */,
+				572B472318CE0771005F3F41 /* egg-crack@2x.png */,
 				574782F218CCE532008315F7 /* arrow_move_on@2x.png */,
 				574782F318CCE532008315F7 /* egg_dark-shadow@2x.png */,
 				574782F418CCE532008315F7 /* egg_golden-shadow@2x.png */,
@@ -227,17 +236,21 @@
 		57CD1DCF18BCE83F003CFF89 /* Penguin Train */ = {
 			isa = PBXGroup;
 			children = (
+				57CD1DD818BCE83F003CFF89 /* AppDelegate.h */,
+				57CD1DD918BCE83F003CFF89 /* AppDelegate.m */,
 				5742496D18C5EEA9001A952F /* iPad */,
 				57CD1DDB18BCE83F003CFF89 /* Main.storyboard */,
 				57CD1DDE18BCE83F003CFF89 /* ViewController.h */,
 				57CD1DDF18BCE83F003CFF89 /* ViewController.m */,
-				5747830318CD020C008315F7 /* IntroductionViewController.h */,
-				5747830418CD020C008315F7 /* IntroductionViewController.m */,
+				572B472018CDEFB5005F3F41 /* IntroductionViewController.h */,
+				572B472118CDEFB5005F3F41 /* IntroductionViewController.m */,
 				57F76D8D18BD2A4600FFFD32 /* Models */,
 				57CD1DE118BCE83F003CFF89 /* GameRender.h */,
 				57CD1DE218BCE83F003CFF89 /* GameRender.m */,
 				57CD1DE618BCE83F003CFF89 /* Images.xcassets */,
 				57CD1DD018BCE83F003CFF89 /* Supporting Files */,
+				572B472518CE0BE6005F3F41 /* EasterEggViewController.h */,
+				572B472618CE0BE6005F3F41 /* EasterEggViewController.m */,
 			);
 			path = "Penguin Train";
 			sourceTree = "<group>";
@@ -247,8 +260,6 @@
 			children = (
 				57A1BB7B18C3645E005E76BB /* Particles */,
 				57A1BB7218C362CF005E76BB /* Sprites */,
-				57CD1DD818BCE83F003CFF89 /* AppDelegate.h */,
-				57CD1DD918BCE83F003CFF89 /* AppDelegate.m */,
 				57CD1DD118BCE83F003CFF89 /* Penguin Train-Info.plist */,
 				57CD1DD218BCE83F003CFF89 /* InfoPlist.strings */,
 				57CD1DD518BCE83F003CFF89 /* main.m */,
@@ -377,6 +388,8 @@
 				574782FC18CCE532008315F7 /* egg_mother-shadow@2x.png in Resources */,
 				57CD1DE718BCE83F003CFF89 /* Images.xcassets in Resources */,
 				57CD1DDD18BCE83F003CFF89 /* Main.storyboard in Resources */,
+				572B472918CE0DB9005F3F41 /* egg_easter@2x.png in Resources */,
+				572B472418CE0771005F3F41 /* egg-crack@2x.png in Resources */,
 				572C36A818CA119400030980 /* egg-shadow@2x.png in Resources */,
 				57A1BB8618C36C75005E76BB /* BonusAura.sks in Resources */,
 				57D936D418CC9C8F00753C82 /* egg_mother@2x.png in Resources */,
@@ -402,10 +415,11 @@
 			files = (
 				57F76D9F18BD3BE300FFFD32 /* Game.m in Sources */,
 				57F76D9918BD388F00FFFD32 /* Board.m in Sources */,
+				572B472718CE0BE6005F3F41 /* EasterEggViewController.m in Sources */,
 				57CD1DE318BCE83F003CFF89 /* GameRender.m in Sources */,
 				57E7652B18BF818600BD4697 /* ScoreCounter.m in Sources */,
 				57CD1DE018BCE83F003CFF89 /* ViewController.m in Sources */,
-				5747830518CD020C008315F7 /* IntroductionViewController.m in Sources */,
+				572B472218CDEFB5005F3F41 /* IntroductionViewController.m in Sources */,
 				57CD1DDA18BCE83F003CFF89 /* AppDelegate.m in Sources */,
 				57F76D9618BD336200FFFD32 /* ActionBlock.m in Sources */,
 				57F76D9C18BD391E00FFFD32 /* Block.m in Sources */,

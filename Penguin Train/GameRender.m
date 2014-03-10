@@ -13,6 +13,8 @@
 #define AD_TIME 3000
 
 @interface GameRender() {
+    
+    NSInteger players;
 
     CGSize screenSize;
     
@@ -36,6 +38,8 @@
         
         adCountdown = AD_TIME;
         timerStarted = NO;
+        
+        players = 1;
         
         scoreLabelFontSize = 12;
         fontname = @"Verdana";
@@ -67,21 +71,35 @@
         
         if([message isEqualToString:@"pausegame"]) {
             
-            //[self pauseGame];
+            [self pauseGame];
             
         }
         
         if([message isEqualToString:@"forcestartgame"]) {
             
-            [self stopCountdown];
+            //[self stopCountdown];
             [self unpauseGame];
+            
+        }
+        
+        if([message isEqualToString:@"toggleplayers"]) {
+            
+            if(players == 1) {
+                
+                players = 2;
+                
+            } else {
+                
+                players = 1;
+                
+            }
             
         }
         
         if([message isEqualToString:@"startgame"]) {
             
-            //[self countdownAndStartgame];
-            [self unpauseGame];
+            [self countdownAndStartgame];
+            //[self unpauseGame];
             
         }
         
@@ -178,13 +196,19 @@
     
     /*GAME SETUP*/
     CGSize screenDimension = [Board blockDimensionForDimension:screenSize]; //calculate grid from screen dimension.
-    self.currentGame = [[Game alloc] initGameForPlayers:1 onGridDimension:screenDimension]; //initiate the game.
+    self.currentGame = [[Game alloc] initGameForPlayers:players onGridDimension:screenDimension]; //initiate the game.
     
     /*GESTURE SETUP*/
     UISwipeGestureRecognizer *rightRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeHandler:)];
     UISwipeGestureRecognizer *leftRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeHandler:)];
     UISwipeGestureRecognizer *upRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeHandler:)];
     UISwipeGestureRecognizer *downRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeHandler:)];
+    
+    UITapGestureRecognizer *touchRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
+    
+    touchRecognizer.cancelsTouchesInView = YES;
+    touchRecognizer.numberOfTapsRequired = 1;
+    touchRecognizer.numberOfTouchesRequired = 1;
     
     rightRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
     leftRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -196,11 +220,43 @@
                            upRecognizer,
                            downRecognizer];
     
+    /*ADD RECOGNIZERS TO VIEW*/
+    
+    [view addGestureRecognizer:touchRecognizer];
+    
     for(UISwipeGestureRecognizer * swipeDirection in gestures) {
         
         [view addGestureRecognizer:swipeDirection];
         
     }
+    
+}
+
+- (void)tapHandler:(UITapGestureRecognizer *)tapRecognizer {
+ 
+    CGPoint tapPosition = [tapRecognizer locationInView:self.view];
+    
+    Train * firstTrain = self.currentGame.trains[0];
+    CGVector lastDirections = [firstTrain lastDirections];
+    CGVector newDirections = lastDirections;
+    
+    //NSLog(@"%f : %f", lastDirections.dx, lastDirections.dy);
+    
+    if(tapPosition.x > (screenSize.width / 2)) {
+        
+        //NSLog(@"left");
+        newDirections.dy = newDirections.dx  * -1;
+        newDirections.dx = lastDirections.dy;
+        
+    } else {
+        
+        /*WORKS*/
+        newDirections.dy = newDirections.dx;
+        newDirections.dx = lastDirections.dy * -1;
+        
+    }
+    
+    [firstTrain setDirection:newDirections];
     
 }
 
@@ -281,15 +337,15 @@
 
 - (void)pauseGame {
     
-    //[self setPaused:YES];
+    [self setPaused:YES];
     self.currentGame.paused = YES;
-    [self stopCountdown];
+    //[self stopCountdown];
     
 }
 
 - (void)unpauseGame {
     
-    //[self setPaused:NO];
+    [self setPaused:NO];
     self.currentGame.paused = NO;
     
 }
@@ -594,8 +650,6 @@
                 [[train children] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                     
                     [obj runAction:colorRed];
-                    
-                    *stop = (idx > 3);
                     
                 }];
                 

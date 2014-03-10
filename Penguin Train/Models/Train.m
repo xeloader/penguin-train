@@ -73,6 +73,12 @@
     
 }
 
+- (CGVector)lastDirections {
+    
+    return lastDirections;
+    
+}
+
 - (Block *) getNextBlockPosition {
     
     CGPoint headPosition = [self headPosition];

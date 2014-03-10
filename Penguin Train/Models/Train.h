@@ -35,5 +35,6 @@
 - (Block *) headBlock;
 - (void) setDirection:(CGVector)requestedDirections;
 - (void)ateBlock:(ActionBlock *)block;
+- (CGVector)lastDirections;
 
 @end
