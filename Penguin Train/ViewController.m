@@ -5,7 +5,9 @@
 //  Created by Victor Ingman on 2014-02-25.
 //  Copyright (c) 2014 Victor Ingman. All rights reserved.
 //
+
 #import "iAd/iAd.h"
+#import "GADBannerView.h"
 
 #import "ViewController.h"
 #import "IntroductionViewController.h"
@@ -16,7 +18,7 @@
 @interface ViewController() {
 
     ADBannerView * ad;
-    //googleAd * gad;
+    GADBannerView * gad;
     
     BOOL firstTime;
 
@@ -64,22 +66,23 @@
     ad.delegate = self;
     [self.view addSubview:ad];
     
+    /*Google AdMob*/
+    gad = [[GADBannerView alloc] initWithFrame:CGRectMake(ad.frame.origin.x, self.view.frame.size.height - ad.frame.size.height, ad.frame.size.width, ad.frame.size.height)];
+    gad.adUnitID = @"ca-app-pub-0463981839037305/3884569784";
+    gad.rootViewController = self;
+    gad.delegate = self;
+    [self.view addSubview:gad];
+    
     /*VIEW SETUP*/
     self.gameView = (SKView *) self.view;
     
     self.gameView.showsFPS = YES;
-    self.gameView.showsNodeCount = NO;
+    self.gameView.showsNodeCount = YES;
     
     self.gameScene = [GameRender sceneWithSize:self.gameView.bounds.size];
     self.gameScene.scaleMode = SKSceneScaleModeAspectFill;
     
     [self.gameView presentScene:self.gameScene];
-    
-}
-
-- (void)bannerViewActionDidFinish:(ADBannerView *)banner {
-    
-    [self forceStartGame];
     
 }
 
@@ -101,6 +104,14 @@
     
 }
 
+/**ADS**/
+
+- (void)bannerViewActionDidFinish:(ADBannerView *)banner {
+    
+    [self forceStartGame];
+    
+}
+
 - (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave {
     
     [self pauseGame];
@@ -109,17 +120,77 @@
     
 }
 
-- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
+- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error { //iAD
     
-    //[self forceStartGame];
+    NSLog(@"fails. :(");
+    ad.hidden = YES; //hide iAD
     
-    if(YES) {
+    //let admob do it's magic.
     
-        //NSLog(@"Fuck, no ad.");
     
+}
+
+- (void)adView:(GADBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error { //adMob
+
+    gad.hidden = YES;
+    
+}
+
+- (void)showAd {
+    
+    if((arc4random() % 4) > 1.0) {
+        
+        [self bannerView:nil didFailToReceiveAdWithError:nil];
+        
+        [self fetchGoogleAd];
+        
+    } else {
+    
+    if(![ad isBannerLoaded]) {
+        
+        ad.hidden = NO;
+        
+    } else {
+        
+        [self fetchGoogleAd];
+        
+    }
+        
     }
     
 }
+
+- (void)fetchGoogleAd {
+    
+    GADRequest *request = [GADRequest request];
+    request.testDevices = @[
+                                GAD_SIMULATOR_ID, //simulator
+                                @"140aad9b7b0c32689b0f6a227c6295e903ecff1b", //philip
+                                @"7e45ff6a0cb8620012b5e40aa90dac3f744a7963", //mamma
+                                @"2a3b02b899773df63ccfce8506da9fbed14cc882", //macce
+                                @"566cec4b6d686932e8bbdcff3261a1c699d1fb35", //min
+                                @"31af3530f342a6a428830ed6caf88bd5891e8eda", //pappa
+                                @"d327c47116d7e7f84cfed831d6dd742c11926d1d", //johanna
+                            ];
+    
+    [gad loadRequest:[GADRequest request]];
+    
+}
+
+- (void)adViewDidReceiveAd:(GADBannerView *)view { //pretty much the same as [ad isBannerLoaded]
+    
+    gad.hidden = NO; //only show if iAd is hidden.
+    
+}
+
+- (void)hideAd {
+    
+    ad.hidden = YES;
+    gad.hidden = YES;
+    
+}
+
+/*EOF ADS*/
 
 - (void)messageReciever:(NSNotification *)notification {
     
@@ -155,39 +226,7 @@
     
 }
 
-- (void)showAd {
-    
-    /*if((arc4random() % 4) > 1.0) {
-        
-        [self bannerView:nil didFailToReceiveAdWithError:nil];
-        
-    } else {*/
-    
-    if([ad isBannerLoaded]) {
-        
-        ad.hidden = NO;
-        
-    }/*else if([gad isBannerLoaded]) {
-        
-        
-        
-    }*/
-
-    //}
-    
-}
-
-- (void)hideAd {
-    
-    ad.hidden = YES;
-    
-}
-
-- (BOOL)shouldAutorotate {
-    
-    return NO;
-    
-}
+- (BOOL)shouldAutorotate { return NO; }
 
 - (NSUInteger)supportedInterfaceOrientations {
     
@@ -200,12 +239,6 @@
         return UIInterfaceOrientationMaskAll;
         
     }
-    
-}
-
-- (void)didReceiveMemoryWarning {
-    
-    [super didReceiveMemoryWarning];
     
 }
 

@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Victor Ingman. All rights reserved.
 //
 
-#import "iAd/iAd.h"
-
 #import "GameRender.h"
 
 #define AD_TIME 3000
@@ -204,11 +202,11 @@
     UISwipeGestureRecognizer *upRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeHandler:)];
     UISwipeGestureRecognizer *downRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeHandler:)];
     
-    UITapGestureRecognizer *touchRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
+    /*UITapGestureRecognizer *touchRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandler:)];
     
     touchRecognizer.cancelsTouchesInView = YES;
     touchRecognizer.numberOfTapsRequired = 1;
-    touchRecognizer.numberOfTouchesRequired = 1;
+    touchRecognizer.numberOfTouchesRequired = 1;*/
     
     rightRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
     leftRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -222,7 +220,7 @@
     
     /*ADD RECOGNIZERS TO VIEW*/
     
-    [view addGestureRecognizer:touchRecognizer];
+    //[view addGestureRecognizer:touchRecognizer];
     
     for(UISwipeGestureRecognizer * swipeDirection in gestures) {
         
@@ -695,8 +693,12 @@
             renderedActionblock = [SKSpriteNode node];
             renderedActionblock.name = identifier;
             
+            NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
+            data[@"actionblock"] = actionblock;
+            
             CGSize eggSize = CGSizeMake([actionblock realPixelSize].width, [actionblock realPixelSize].height + (BLOCK_SIZE / 16));
             
+            renderedActionblock.userData = data;
             renderedActionblock.size = eggSize;
             
             [actionblocksContainer addChild:renderedActionblock];
@@ -705,6 +707,8 @@
         
         renderedActionblock.position = [actionblock realPixelPoint];
         renderedActionblock.texture = [SKTexture textureWithImageNamed:imageIdentifier];
+        
+        renderedActionblock.userData[@"actionblock"] = actionblock;
         
         if(![renderedActionblock hasActions] && actionblock.type != TYPE_BOMB) {
             
@@ -755,7 +759,7 @@
         
         NSInteger renderedBlockCount = [actionBlocksNode.children count];
         NSInteger blockCount = [self.currentGame.actionBlocks count];
-        
+
         if(renderedBlockCount > blockCount) {
             
             NSRange blocksToRemove;
@@ -839,9 +843,9 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
-    for (UITouch *touch in touches) {
+    /*for (UITouch *touch in touches) {
         
-        /*CGPoint location = [touch locationInNode:self];
+        CGPoint location = [touch locationInNode:self];
         
         SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
         [sprite setScale:0.1];
@@ -852,9 +856,9 @@
         
         [sprite runAction:[SKAction repeatActionForever:action]];
         
-        [self addChild:sprite];*/
+        [self addChild:sprite];
         
-    }
+    }*/
 }
 
 + (id)extractedParticleForType:(NSInteger)requestedType andTheme:(NSInteger)theme {
