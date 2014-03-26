@@ -68,21 +68,25 @@
     
     /*Google AdMob*/
     gad = [[GADBannerView alloc] initWithFrame:CGRectMake(ad.frame.origin.x, self.view.frame.size.height - ad.frame.size.height, ad.frame.size.width, ad.frame.size.height)];
+    //gad = [[GADBannerView alloc] init];
     gad.adUnitID = @"ca-app-pub-0463981839037305/3884569784";
     gad.rootViewController = self;
     gad.delegate = self;
     [self.view addSubview:gad];
     
     /*VIEW SETUP*/
-    self.gameView = (SKView *) self.view;
+    self.gameView = (SKView *) self.gameSection;
     
-    self.gameView.showsFPS = YES;
-    self.gameView.showsNodeCount = YES;
+    //self.gameView.showsFPS = YES;
+    //self.gameView.showsNodeCount = YES;
     
     self.gameScene = [GameRender sceneWithSize:self.gameView.bounds.size];
     self.gameScene.scaleMode = SKSceneScaleModeAspectFill;
     
     [self.gameView presentScene:self.gameScene];
+    
+    //Start the ads
+    [self showAd];
     
 }
 
@@ -122,8 +126,10 @@
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error { //iAD
     
-    NSLog(@"fails. :(");
+    NSLog(@"apple failed");
     ad.hidden = YES; //hide iAD
+    
+    [self showAd];
     
     //let admob do it's magic.
     
@@ -132,6 +138,7 @@
 
 - (void)adView:(GADBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error { //adMob
 
+    NSLog(@"google failed");
     gad.hidden = YES;
     
 }
@@ -146,15 +153,15 @@
         
     } else {
     
-    if(![ad isBannerLoaded]) {
-        
-        ad.hidden = NO;
-        
-    } else {
-        
-        [self fetchGoogleAd];
-        
-    }
+        if([ad isBannerLoaded]) {
+            
+            ad.hidden = NO;
+            
+        } else {
+            
+            [self fetchGoogleAd];
+            
+        }
         
     }
     
@@ -172,6 +179,11 @@
                                 @"31af3530f342a6a428830ed6caf88bd5891e8eda", //pappa
                                 @"d327c47116d7e7f84cfed831d6dd742c11926d1d", //johanna
                             ];
+    request.additionalParameters = @{
+                                     
+                                     @"color_bg":@"D4DCE0"
+                                     
+                                     };
     
     [gad loadRequest:[GADRequest request]];
     
@@ -179,7 +191,18 @@
 
 - (void)adViewDidReceiveAd:(GADBannerView *)view { //pretty much the same as [ad isBannerLoaded]
     
-    gad.hidden = NO; //only show if iAd is hidden.
+    if(ad.hidden) { //if apple ad is hidden.
+    
+        gad.hidden = NO; //only show if iAd is hidden.
+        
+    }
+    
+}
+
+- (void)bannerViewWillLoadAd:(ADBannerView *)banner {
+    
+    ad.hidden = NO;
+    gad.hidden = YES;
     
 }
 
@@ -200,13 +223,13 @@
         
         if([message isEqualToString:@"showad"]) {
             
-            [self showAd];
+            //[self showAd];
             
         }
         
         if([message isEqualToString:@"hidead"]) {
             
-            [self hideAd];
+            //[self hideAd];
             
         }
 

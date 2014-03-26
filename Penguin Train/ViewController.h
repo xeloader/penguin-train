@@ -10,5 +10,8 @@
 #import <SpriteKit/SpriteKit.h>
 
 @interface ViewController : UIViewController <ADBannerViewDelegate, GADBannerViewDelegate>
+@property (weak, nonatomic) IBOutlet UIView *gameSection;
+
+@property (weak, nonatomic) IBOutlet UIView *adView;
 
 @end

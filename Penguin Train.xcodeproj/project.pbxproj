@@ -51,9 +51,6 @@
 		57CD1DE018BCE83F003CFF89 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57CD1DDF18BCE83F003CFF89 /* ViewController.m */; };
 		57CD1DE318BCE83F003CFF89 /* GameRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 57CD1DE218BCE83F003CFF89 /* GameRender.m */; };
 		57CD1DE718BCE83F003CFF89 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57CD1DE618BCE83F003CFF89 /* Images.xcassets */; };
-		57CD1DEE18BCE83F003CFF89 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57CD1DED18BCE83F003CFF89 /* XCTest.framework */; };
-		57CD1DEF18BCE83F003CFF89 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57CD1DC718BCE83F003CFF89 /* Foundation.framework */; };
-		57CD1DF018BCE83F003CFF89 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57CD1DCB18BCE83F003CFF89 /* UIKit.framework */; };
 		57D936D118CC8A0200753C82 /* MotherAura.sks in Resources */ = {isa = PBXBuildFile; fileRef = 57D936CF18CC8A0200753C82 /* MotherAura.sks */; };
 		57D936D418CC9C8F00753C82 /* egg_mother@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 57D936D318CC9C8F00753C82 /* egg_mother@2x.png */; };
 		57E7652B18BF818600BD4697 /* ScoreCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E7652A18BF818600BD4697 /* ScoreCounter.m */; };
@@ -63,16 +60,6 @@
 		57F76D9C18BD391E00FFFD32 /* Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F76D9B18BD391E00FFFD32 /* Block.m */; };
 		57F76D9F18BD3BE300FFFD32 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F76D9E18BD3BE300FFFD32 /* Game.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		57CD1DF118BCE83F003CFF89 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57CD1DBC18BCE83F003CFF89 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 57CD1DC318BCE83F003CFF89;
-			remoteInfo = "Penguin Train";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		571ABC0A18CBC7D700344069 /* Snow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Snow.sks; sourceTree = "<group>"; };
@@ -139,7 +126,6 @@
 		57CD1DE118BCE83F003CFF89 /* GameRender.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameRender.h; sourceTree = "<group>"; };
 		57CD1DE218BCE83F003CFF89 /* GameRender.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameRender.m; sourceTree = "<group>"; };
 		57CD1DE618BCE83F003CFF89 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		57CD1DEC18BCE83F003CFF89 /* Penguin TrainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Penguin TrainTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57CD1DED18BCE83F003CFF89 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		57D936CF18CC8A0200753C82 /* MotherAura.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MotherAura.sks; sourceTree = "<group>"; };
 		57D936D318CC9C8F00753C82 /* egg_mother@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "egg_mother@2x.png"; path = "../../../../Pictures/Sprites/Penguin Train/egg_mother@2x.png"; sourceTree = "<group>"; };
@@ -177,16 +163,6 @@
 				57CD1DC818BCE83F003CFF89 /* Foundation.framework in Frameworks */,
 				579D8CDB18C8946E0064BB21 /* GameKit.framework in Frameworks */,
 				579ED6F818DE3FAE008C42C4 /* libGoogleAdMobAds.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		57CD1DE918BCE83F003CFF89 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				57CD1DEE18BCE83F003CFF89 /* XCTest.framework in Frameworks */,
-				57CD1DF018BCE83F003CFF89 /* UIKit.framework in Frameworks */,
-				57CD1DEF18BCE83F003CFF89 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,7 +248,6 @@
 			isa = PBXGroup;
 			children = (
 				57CD1DC418BCE83F003CFF89 /* Penguin Train.app */,
-				57CD1DEC18BCE83F003CFF89 /* Penguin TrainTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -306,13 +281,15 @@
 			isa = PBXGroup;
 			children = (
 				57CD1DD818BCE83F003CFF89 /* AppDelegate.h */,
-				579ED6ED18DE3F50008C42C4 /* Google AdMob */,
 				57CD1DD918BCE83F003CFF89 /* AppDelegate.m */,
+				579ED6ED18DE3F50008C42C4 /* Google AdMob */,
 				57CD1DDB18BCE83F003CFF89 /* Main.storyboard */,
 				579ED5F018DE2C5D008C42C4 /* ViewControllers */,
 				57F76D8D18BD2A4600FFFD32 /* Models */,
 				57CD1DE118BCE83F003CFF89 /* GameRender.h */,
 				57CD1DE218BCE83F003CFF89 /* GameRender.m */,
+				57A1BB7B18C3645E005E76BB /* Particles */,
+				57A1BB7218C362CF005E76BB /* Sprites */,
 				57CD1DE618BCE83F003CFF89 /* Images.xcassets */,
 				57CD1DD018BCE83F003CFF89 /* Supporting Files */,
 			);
@@ -322,8 +299,6 @@
 		57CD1DD018BCE83F003CFF89 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				57A1BB7B18C3645E005E76BB /* Particles */,
-				57A1BB7218C362CF005E76BB /* Sprites */,
 				57CD1DD118BCE83F003CFF89 /* Penguin Train-Info.plist */,
 				57CD1DD218BCE83F003CFF89 /* InfoPlist.strings */,
 				57CD1DD518BCE83F003CFF89 /* main.m */,
@@ -371,24 +346,6 @@
 			productReference = 57CD1DC418BCE83F003CFF89 /* Penguin Train.app */;
 			productType = "com.apple.product-type.application";
 		};
-		57CD1DEB18BCE83F003CFF89 /* Penguin TrainTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 57CD1E0018BCE83F003CFF89 /* Build configuration list for PBXNativeTarget "Penguin TrainTests" */;
-			buildPhases = (
-				57CD1DE818BCE83F003CFF89 /* Sources */,
-				57CD1DE918BCE83F003CFF89 /* Frameworks */,
-				57CD1DEA18BCE83F003CFF89 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				57CD1DF218BCE83F003CFF89 /* PBXTargetDependency */,
-			);
-			name = "Penguin TrainTests";
-			productName = "Penguin TrainTests";
-			productReference = 57CD1DEC18BCE83F003CFF89 /* Penguin TrainTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -406,9 +363,6 @@
 							};
 						};
 					};
-					57CD1DEB18BCE83F003CFF89 = {
-						TestTargetID = 57CD1DC318BCE83F003CFF89;
-					};
 				};
 			};
 			buildConfigurationList = 57CD1DBF18BCE83F003CFF89 /* Build configuration list for PBXProject "Penguin Train" */;
@@ -425,7 +379,6 @@
 			projectRoot = "";
 			targets = (
 				57CD1DC318BCE83F003CFF89 /* Penguin Train */,
-				57CD1DEB18BCE83F003CFF89 /* Penguin TrainTests */,
 			);
 		};
 /* End PBXProject section */
@@ -463,13 +416,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		57CD1DEA18BCE83F003CFF89 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -492,22 +438,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		57CD1DE818BCE83F003CFF89 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		57CD1DF218BCE83F003CFF89 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 57CD1DC318BCE83F003CFF89 /* Penguin Train */;
-			targetProxy = 57CD1DF118BCE83F003CFF89 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		57CD1DD218BCE83F003CFF89 /* InfoPlist.strings */ = {
@@ -657,46 +588,6 @@
 			};
 			name = Release;
 		};
-		57CD1E0118BCE83F003CFF89 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Penguin Train.app/Penguin Train";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Penguin Train/Penguin Train-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "Penguin TrainTests/Penguin TrainTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		57CD1E0218BCE83F003CFF89 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Penguin Train.app/Penguin Train";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Penguin Train/Penguin Train-Prefix.pch";
-				INFOPLIST_FILE = "Penguin TrainTests/Penguin TrainTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -714,15 +605,6 @@
 			buildConfigurations = (
 				57CD1DFE18BCE83F003CFF89 /* Debug */,
 				57CD1DFF18BCE83F003CFF89 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		57CD1E0018BCE83F003CFF89 /* Build configuration list for PBXNativeTarget "Penguin TrainTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				57CD1E0118BCE83F003CFF89 /* Debug */,
-				57CD1E0218BCE83F003CFF89 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

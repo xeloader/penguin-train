@@ -55,7 +55,7 @@
 - (void) calculateStartingPosition {
     
     startingPosition.x = BLOCK; //one block
-    startingPosition.y = self.identifier + (4 * BLOCK);
+    startingPosition.y = self.identifier + (BLOCK);
     
 }
 

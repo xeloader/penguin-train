@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Victor Ingman. All rights reserved.
 //
 
+#import "GameKit/GameKit.h"
+
 #import "IntroductionViewController.h"
 #import "EasterEggViewController.h"
 
@@ -19,17 +21,17 @@
 
 @implementation IntroductionViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        
-        eggTaps = 0;
-        self.eastereggButton.hidden = YES;
-        // Custom initialization
-    }
-    return self;
+- (void)viewDidLoad {
+    
+    [super viewDidLoad];
+    
+    [self authenticateLocalPlayer];
+    
+    eggTaps = 0;
+    self.eastereggButton.hidden = YES;
+    
 }
+
 - (IBAction)easterEggTapped:(id)sender {
     
     eggTaps = 0;
@@ -40,6 +42,7 @@
     [self.eggButton setImage:crackedEgg forState:UIControlStateNormal];
     
 }
+
 - (IBAction)crackEgg:(id)sender {
     
     eggTaps++;
@@ -63,22 +66,18 @@
     
 }
 
+- (void) authenticateLocalPlayer {
+    
+    GKLocalPlayer *player = [GKLocalPlayer localPlayer];
+    
+    [player authenticateHandler];
+    
+}
+
 - (IBAction)startGame:(id)sender {
     
     //[self dismissViewControllerAnimated:YES completion:nil];
     
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

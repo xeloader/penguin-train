@@ -302,11 +302,25 @@
         //[self pauseGame]; //stops countdown.
         //[self countdownAndStartgame];
         
-        [self runAction:[SKAction moveByX:4.0 y:0 duration:0.05] completion:^{
+        SKSpriteNode *wall = (SKSpriteNode *)[self childNodeWithName:@"wall-left"];
+        
+        if(!wall) {
             
-            [self runAction:[SKAction moveByX:-8.0 y:0 duration:0.05] completion:^{
+            wall = [SKSpriteNode node];
+            wall.name = @"wall-left";
+            wall.size = CGSizeMake(BLOCK_SIZE, screenSize.height);
+            wall.position = CGPointMake(0, 0);
+            wall.color = [UIColor blackColor];
+            
+            [self addChild:wall];
+            
+        }
+        
+        [wall runAction:[SKAction moveByX:4.0 y:0 duration:0.05] completion:^{
+            
+            [wall runAction:[SKAction moveByX:-8.0 y:0 duration:0.05] completion:^{
                
-                [self runAction:[SKAction moveByX:4.0 y:0 duration:0.05] completion:^{
+                [wall runAction:[SKAction moveByX:4.0 y:0 duration:0.05] completion:^{
                     
                 }];
                 
