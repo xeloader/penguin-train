@@ -938,11 +938,11 @@
             
             break;
             
-        case THEME_BLOCK:
+        default:
             
             hue = 0;
-            saturation = 0;
             brightness = 0;
+            saturation = 0;
             
             break;
             

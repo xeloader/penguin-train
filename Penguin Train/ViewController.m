@@ -271,7 +271,7 @@
             
             NSLog(@"RECIEVED MESSAGE ABOUT HIGHSCORE");
             
-            int score = [notification.userInfo[@"score"] integerValue];
+            long score = [notification.userInfo[@"score"] longValue];
             
             [self showHighscoreOf:score];
             
