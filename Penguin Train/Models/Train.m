@@ -241,8 +241,6 @@
             
             if(self.blockCount > 1) {
                 
-                
-                
                 self.blockCount--;
                 
             } else {

@@ -261,6 +261,7 @@
 - (void)update:(CFTimeInterval)currentTime { //always
     
     [self renderBackgroundActions];
+    [self renderWalls];
     
     [self renderScorePopups];
     [self renderEarthquakeIfDead];
@@ -290,6 +291,42 @@
     
 }
 
+- (void)renderWalls {
+    
+    SKNode *wallContainer  = [self childNodeWithName:@"walls"];
+    
+    if(!wallContainer) {
+        
+        wallContainer = [SKNode node];
+        wallContainer.name = @"walls";
+        
+        for(int i = 0; i < 2; i++) {
+            
+            NSString *wallIdentifier = [NSString stringWithFormat:@"wall%d", i];
+            SKSpriteNode *wall = (SKSpriteNode *)[wallContainer childNodeWithName:wallIdentifier];
+            
+            if(!wall) {
+                
+                SKSpriteNode *wall = [SKSpriteNode node];
+                wall.name = [NSString stringWithFormat:@"wall%d", i];
+                wall.size = CGSizeMake(BLOCK_SIZE, screenSize.height);
+                wall.anchorPoint = CGPointMake(0, 0);
+                wall.position = CGPointMake(-BLOCK_SIZE + i * (screenSize.width + BLOCK_SIZE), 0);
+                wall.color = [UIColor blackColor];
+                wall.hidden = NO;
+                
+                [wallContainer addChild:wall];
+                
+            }
+            
+        }
+        
+        [self addChild:wallContainer];
+        
+    }
+    
+}
+
 - (void)renderEarthquakeIfDead {
     
     id data = [self.currentGame getViewKey:@"died"];
@@ -298,29 +335,21 @@
 
         data = (NSNumber *)data;
         
-        [self showAd];
+        //[self showAd];
         //[self pauseGame]; //stops countdown.
         //[self countdownAndStartgame];
         
-        SKSpriteNode *wall = (SKSpriteNode *)[self childNodeWithName:@"wall-left"];
-        
-        if(!wall) {
+        [[self children] enumerateObjectsUsingBlock:^(id obj, NSUInteger index, BOOL *stop) {
             
-            wall = [SKSpriteNode node];
-            wall.name = @"wall-left";
-            wall.size = CGSizeMake(BLOCK_SIZE, screenSize.height);
-            wall.position = CGPointMake(0, 0);
-            wall.color = [UIColor blackColor];
+            float movementX = 8;
             
-            [self addChild:wall];
-            
-        }
-        
-        [wall runAction:[SKAction moveByX:4.0 y:0 duration:0.05] completion:^{
-            
-            [wall runAction:[SKAction moveByX:-8.0 y:0 duration:0.05] completion:^{
-               
-                [wall runAction:[SKAction moveByX:4.0 y:0 duration:0.05] completion:^{
+            [obj runAction:[SKAction moveByX:movementX y:0 duration:0.05] completion:^{
+                
+                [obj runAction:[SKAction moveByX:(-1 * (movementX * 2)) y:0 duration:0.05] completion:^{
+                    
+                    [obj runAction:[SKAction moveByX:movementX y:0 duration:0.05] completion:^{
+                        
+                    }];
                     
                 }];
                 
@@ -665,9 +694,21 @@
                     
                 }];
                 
-                [self runAction:[SKAction moveByX:2 y:0 duration:0.05] completion:^{
+                [[self children] enumerateObjectsUsingBlock:^(id obj, NSUInteger index, BOOL *stop) {
                     
-                    [self runAction:[SKAction moveByX:-2 y:0 duration:0.05]];
+                    float movementX = 4;
+                    
+                    [obj runAction:[SKAction moveByX:movementX y:0 duration:0.05] completion:^{
+                        
+                        [obj runAction:[SKAction moveByX:(-1 * (movementX * 2)) y:0 duration:0.05] completion:^{
+                            
+                            [obj runAction:[SKAction moveByX:movementX y:0 duration:0.05] completion:^{
+                                
+                            }];
+                            
+                        }];
+                        
+                    }];
                     
                 }];
                 

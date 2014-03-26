@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5705CBDA18E3337E004FE31E /* splash@i4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5705CBD818E3337E004FE31E /* splash@i4@2x.png */; };
+		5705CBDB18E3337E004FE31E /* splash@i5.png in Resources */ = {isa = PBXBuildFile; fileRef = 5705CBD918E3337E004FE31E /* splash@i5.png */; };
 		571ABC0C18CBC7D700344069 /* Snow.sks in Resources */ = {isa = PBXBuildFile; fileRef = 571ABC0A18CBC7D700344069 /* Snow.sks */; };
 		571C590618C4C6AD0043A89B /* egg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 571C590518C4C6AD0043A89B /* egg@2x.png */; };
 		572B472218CDEFB5005F3F41 /* IntroductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 572B472118CDEFB5005F3F41 /* IntroductionViewController.m */; };
@@ -62,6 +64,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5705CBD818E3337E004FE31E /* splash@i4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash@i4@2x.png"; sourceTree = "<group>"; };
+		5705CBD918E3337E004FE31E /* splash@i5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash@i5.png"; sourceTree = "<group>"; };
 		571ABC0A18CBC7D700344069 /* Snow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Snow.sks; sourceTree = "<group>"; };
 		571C590518C4C6AD0043A89B /* egg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "egg@2x.png"; sourceTree = "<group>"; };
 		572B472018CDEFB5005F3F41 /* IntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroductionViewController.h; sourceTree = "<group>"; };
@@ -299,6 +303,8 @@
 		57CD1DD018BCE83F003CFF89 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5705CBD818E3337E004FE31E /* splash@i4@2x.png */,
+				5705CBD918E3337E004FE31E /* splash@i5.png */,
 				57CD1DD118BCE83F003CFF89 /* Penguin Train-Info.plist */,
 				57CD1DD218BCE83F003CFF89 /* InfoPlist.strings */,
 				57CD1DD518BCE83F003CFF89 /* main.m */,
@@ -392,6 +398,7 @@
 				573FBB8518C5430B0083D4B2 /* penguin@2x.png in Resources */,
 				57CD1DD418BCE83F003CFF89 /* InfoPlist.strings in Resources */,
 				574782FA18CCE532008315F7 /* egg_golden-shadow@2x.png in Resources */,
+				5705CBDB18E3337E004FE31E /* splash@i5.png in Resources */,
 				571ABC0C18CBC7D700344069 /* Snow.sks in Resources */,
 				574782F818CCE532008315F7 /* arrow_move_on@2x.png in Resources */,
 				574782FD18CCE532008315F7 /* penguin-shadow@2x.png in Resources */,
@@ -405,6 +412,7 @@
 				574782FC18CCE532008315F7 /* egg_mother-shadow@2x.png in Resources */,
 				57CD1DE718BCE83F003CFF89 /* Images.xcassets in Resources */,
 				57CD1DDD18BCE83F003CFF89 /* Main.storyboard in Resources */,
+				5705CBDA18E3337E004FE31E /* splash@i4@2x.png in Resources */,
 				572B472918CE0DB9005F3F41 /* egg_easter@2x.png in Resources */,
 				572B472418CE0771005F3F41 /* egg-crack@2x.png in Resources */,
 				572C36A818CA119400030980 /* egg-shadow@2x.png in Resources */,

@@ -11,6 +11,9 @@
 
 @interface ViewController : UIViewController <ADBannerViewDelegate, GADBannerViewDelegate>
 @property (weak, nonatomic) IBOutlet UIView *gameSection;
+@property (weak, nonatomic) IBOutlet UILabel *highscoreLabel;
+@property (weak, nonatomic) IBOutlet UILabel *subheaderLabel;
+@property (weak, nonatomic) IBOutlet UIView *highscoreView;
 
 @property (weak, nonatomic) IBOutlet UIView *adView;
 

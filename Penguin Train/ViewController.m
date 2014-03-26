@@ -92,7 +92,11 @@
 
 - (void)startGame {
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"render" object:@"startgame"];
+    if(self.highscoreView.hidden == YES) {
+    
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"render" object:@"startgame"];
+        
+    }
     
 }
 
@@ -111,8 +115,12 @@
 /**ADS**/
 
 - (void)bannerViewActionDidFinish:(ADBannerView *)banner {
-    
-    [self forceStartGame];
+
+    if(self.highscoreView.hidden == YES) {
+     
+        [self forceStartGame];
+        
+    }
     
 }
 
@@ -129,10 +137,7 @@
     NSLog(@"apple failed");
     ad.hidden = YES; //hide iAD
     
-    [self showAd];
-    
-    //let admob do it's magic.
-    
+    [self showAd]; //give google a shot.
     
 }
 
@@ -145,32 +150,54 @@
 
 - (void)showAd {
     
-    if((arc4random() % 4) > 1.0) {
+    /*if((arc4random() % 4) > 1.0) {
         
         [self bannerView:nil didFailToReceiveAdWithError:nil];
         
         [self fetchGoogleAd];
         
-    } else {
+    } else {*/
     
-        if([ad isBannerLoaded]) {
-            
-            ad.hidden = NO;
-            
-        } else {
-            
-            [self fetchGoogleAd];
-            
-        }
+    if([ad isBannerLoaded]) {
+        
+        ad.hidden = NO;
+        
+    } else {
+        
+        [self fetchGoogleAd];
         
     }
+    
+    //}
+    
+}
+- (IBAction)tweet:(id)sender {
+    
+
+    
+}
+
+- (void)showHighscoreOf:(NSInteger)score {
+    
+    [self pauseGame];
+    
+    [self.highscoreLabel setText:[NSString stringWithFormat:@"%ld", (long)score]];
+
+    self.highscoreView.hidden = NO;
+    
+}
+
+- (IBAction)dismissHighscoreAndPlay:(id)sender {
+    
+    self.highscoreView.hidden = YES;
+    [self forceStartGame];
     
 }
 
 - (void)fetchGoogleAd {
     
     GADRequest *request = [GADRequest request];
-    request.testDevices = @[
+    /*request.testDevices = @[
                                 GAD_SIMULATOR_ID, //simulator
                                 @"140aad9b7b0c32689b0f6a227c6295e903ecff1b", //philip
                                 @"7e45ff6a0cb8620012b5e40aa90dac3f744a7963", //mamma
@@ -183,9 +210,9 @@
                                      
                                      @"color_bg":@"D4DCE0"
                                      
-                                     };
+                                     };*/
     
-    [gad loadRequest:[GADRequest request]];
+    [gad loadRequest:request];
     
 }
 
@@ -236,6 +263,17 @@
         if([message isEqualToString:@"startgame"]) {
             
             [self startGame];
+            
+        }
+        
+        
+        if([message isEqualToString:@"newhighscore"]) {
+            
+            NSLog(@"RECIEVED MESSAGE ABOUT HIGHSCORE");
+            
+            int score = [notification.userInfo[@"score"] integerValue];
+            
+            [self showHighscoreOf:score];
             
         }
         

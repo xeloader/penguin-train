@@ -17,7 +17,8 @@
     
     if(self) {
         
-        [self resetCounter];
+        //[self resetCounter];
+        self.count = 0;
         
     }
     
@@ -39,6 +40,8 @@
         
         GKScore * score = [[GKScore alloc] init];
         score.value = self.count;
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"viewcontroller" object:@"newhighscore" userInfo:@{@"score":[NSNumber numberWithInt:self.count]}];
         
         [[NSUserDefaults standardUserDefaults] setInteger:self.count forKey:@"highscore"];
         
