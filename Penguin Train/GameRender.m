@@ -136,6 +136,26 @@
     
 }
 
+- (void)showTapToStartSymbol {
+    
+    SKSpriteNode *tapSymbol = (SKSpriteNode *)[self childNodeWithName:@"tap-symbol"];
+    
+    if(!tapSymbol) {
+        
+        tapSymbol = [SKSpriteNode node];
+        
+        tapSymbol.name = @"tap-symbol";
+        tapSymbol.color = [UIColor blackColor];
+        tapSymbol.size = CGSizeMake(32, 32);
+        
+    }
+    
+    Block *firstBlock = [self.currentGame.trains[0] headBlock];
+    
+    tapSymbol.position = firstBlock.point; //edit later.
+    
+}
+
 - (void)countdownAndStartgame {
     
     self.paused = NO;

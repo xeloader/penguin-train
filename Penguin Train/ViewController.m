@@ -31,26 +31,11 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    
     [super viewDidLoad];
     
     [self presentGameScene];
-    
-}
-
-- (void)viewDidAppear {
-    
-    if(YES) {
-        
-        //[defaults setBool:NO forKey:@"first"];
-        
-        //[[[[UIApplication sharedApplication] delegate] window] setRootViewController:viewController];
-        //[self presentViewController:viewController animated:YES completion:nil];
-        
-    } else {
-        
-    }
     
 }
 
@@ -171,11 +156,6 @@
     //}
     
 }
-- (IBAction)tweet:(id)sender {
-    
-
-    
-}
 
 - (void)showHighscoreOf:(NSInteger)score {
     
@@ -205,12 +185,7 @@
                                 @"566cec4b6d686932e8bbdcff3261a1c699d1fb35", //min
                                 @"31af3530f342a6a428830ed6caf88bd5891e8eda", //pappa
                                 @"d327c47116d7e7f84cfed831d6dd742c11926d1d", //johanna
-                            ];
-    request.additionalParameters = @{
-                                     
-                                     @"color_bg":@"D4DCE0"
-                                     
-                                     };*/
+                            ];*/
     
     [gad loadRequest:request];
     
