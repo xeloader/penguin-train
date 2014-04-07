@@ -142,23 +142,37 @@
     
     if(!tapSymbol) {
         
-        tapSymbol = [SKSpriteNode node];
+        tapSymbol = [SKSpriteNode spriteNodeWithImageNamed:@"SwipeGestureClean"];
         
         tapSymbol.name = @"tap-symbol";
         tapSymbol.color = [UIColor blackColor];
-        tapSymbol.size = CGSizeMake(32, 32);
+        
+        SKAction *growth = [SKAction repeatActionForever:[SKAction sequence:@[
+                                                [SKAction scaleBy:1.2 duration:0.2],
+                                                [SKAction scaleTo:1 duration:0.2]
+                                                ]]];
+        
+        [tapSymbol runAction:growth];
+        
+        [self addChild:tapSymbol];
         
     }
     
     Block *firstBlock = [self.currentGame.trains[0] headBlock];
     
-    tapSymbol.position = firstBlock.point; //edit later.
+    CGPoint modifiedPosition = [firstBlock realPixelPoint];
+    modifiedPosition.x = modifiedPosition.x + BLOCK_SIZE;
+    modifiedPosition.y = modifiedPosition.y + BLOCK_SIZE;
+    
+    tapSymbol.position = modifiedPosition;
     
 }
 
 - (void)countdownAndStartgame {
     
     self.paused = NO;
+    
+    [self showTapToStartSymbol];
     
     SKLabelNode * countdown = (SKLabelNode *)[self childNodeWithName:@"countdown"];
     
@@ -356,8 +370,9 @@
         data = (NSNumber *)data;
         
         //[self showAd];
-        //[self pauseGame]; //stops countdown.
+        [self pauseGame]; //stops countdown.
         //[self countdownAndStartgame];
+        [self showTapToStartSymbol];
         
         [[self children] enumerateObjectsUsingBlock:^(id obj, NSUInteger index, BOOL *stop) {
             
@@ -398,7 +413,7 @@
 
 - (void)pauseGame {
     
-    [self setPaused:YES];
+    //[self setPaused:YES];
     self.currentGame.paused = YES;
     //[self stopCountdown];
     
